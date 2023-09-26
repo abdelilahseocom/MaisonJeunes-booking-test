@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             EmployeesTableSeeder::class,
             ClientsTableSeeder::class,
             AppointmentsTableSeeder::class,
+            RegionsTableSeeder::class,
         ]);
     }
 }
