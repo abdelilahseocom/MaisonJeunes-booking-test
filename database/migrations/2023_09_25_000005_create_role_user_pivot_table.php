@@ -10,12 +10,20 @@ class CreateRoleUserPivotTable extends Migration
     {
         Schema::create('role_user', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
-
-            $table->foreign('user_id', 'user_id_fk_360598')->references('id')->on('users')->onDelete('cascade');
-
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('role_id');
-
-            $table->foreign('role_id', 'role_id_fk_360598')->references('id')->on('roles')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('role_user');
+    }
+    
 }
