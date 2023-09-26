@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             ServicesTableSeeder::class,
-            EmployeesTableSeeder::class,
             ClientsTableSeeder::class,
             AppointmentsTableSeeder::class,
         ]);
