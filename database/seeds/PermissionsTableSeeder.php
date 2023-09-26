@@ -31,7 +31,7 @@ class PermissionsTableSeeder extends Seeder
             [
                 'id'         => '5',
                 'name'      => 'permission_delete',
-                'title'       => "supprimer l'autorisations",
+                'title'       => "Supprimer l'autorisations",
             ],
             [
                 'id'         => '6',
@@ -116,27 +116,27 @@ class PermissionsTableSeeder extends Seeder
             [
                 'id'         => '22',
                 'name'      => 'youth_center_create',
-                'title'       => "Créer un maison des jeunes",
+                'title'       => "Créer la maison des jeunes",
             ],
             [
                 'id'         => '23',
                 'name'      => 'youth_center_edit',
-                'title'       => "Modifier maison des jeunes",
+                'title'       => "Modifier la maison des jeunes",
             ],
             [
                 'id'         => '24',
                 'name'      => 'youth_center_show',
-                'title'       => "Afficher maison des jeunes",
+                'title'       => "Afficher la maison des jeunes",
             ],
             [
                 'id'         => '25',
                 'name'      => 'youth_center_delete',
-                'title'       => "Supprimer maison des jeunes",
+                'title'       => "Supprimer la maison des jeunes",
             ],
             [
                 'id'         => '26',
                 'name'      => 'youth_center_access',
-                'title'       => "Accéder au maison des jeunes",
+                'title'       => "Accès au maison des jeunes",
             ],
             [
                 'id'         => '27',
@@ -161,7 +161,7 @@ class PermissionsTableSeeder extends Seeder
             [
                 'id'         => '31',
                 'name'      => 'client_access',
-                'title'       => "Accéder au client",
+                'title'       => "Accès au client",
             ],
             [
                 'id'         => '32',

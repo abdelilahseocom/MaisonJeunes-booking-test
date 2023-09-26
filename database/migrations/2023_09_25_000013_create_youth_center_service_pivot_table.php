@@ -19,7 +19,7 @@ class CreateYouthCenterServicePivotTable extends Migration
             $table->foreign('youth_center_id')->references('id')->on('youth_centers')->onDelete('cascade');
             $table->unsignedInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-            $table->time('duration');
+            $table->integer('duration');
             $table->integer('max_places')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
