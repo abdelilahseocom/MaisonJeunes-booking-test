@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             RoleUserTableSeeder::class,
             ServicesTableSeeder::class,
             ClientsTableSeeder::class,
+            RegionsTableSeeder::class,
         ]);
     }
 }
