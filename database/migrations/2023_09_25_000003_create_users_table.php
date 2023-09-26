@@ -10,20 +10,26 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->string('name');
-
+            $table->string('firstname');
+            $table->string('lastname');
             $table->string('email');
-
             $table->datetime('email_verified_at')->nullable();
-
             $table->string('password');
-
+            $table->tinyInteger('status')->default(1);
+            $table->string('last_login')->nullable();
             $table->string('remember_token')->nullable();
-
             $table->timestamps();
-
             $table->softDeletes();
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('users');
     }
 }
