@@ -57,10 +57,10 @@ class CityController extends Controller
             "province_id"=>$request->province_id,
         ];
         if (City::create($data)) {
-            Session::flash("success", trans('cruds.cities.fields.success_msg'));
+            Session::flash("success", trans('global.success_msg'));
         }
         else{
-            Session::flash("error", trans('cruds.cities.fields.error_msg'));
+            Session::flash("error", trans('global.error_msg'));
         }
         return redirect()->route("admin.cities.index");
     }
@@ -113,10 +113,10 @@ class CityController extends Controller
         ];
         $city = City::findOrFail($city_id);
         if ($city->update($data)) {
-            Session::flash("success", trans('cruds.cities.fields.success_msg'));
+            Session::flash("success", trans('global.success_msg'));
         }
         else{
-            Session::flash("error", trans('cruds.cities.fields.error_msg'));
+            Session::flash("error", trans('global.error_msg'));
         }
 
         return redirect()->route('admin.cities.index');
