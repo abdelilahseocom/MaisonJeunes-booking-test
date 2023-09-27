@@ -60,10 +60,17 @@
 
 
             <div style="padding-top: 20px" class="container-fluid">
-                @if(session('message'))
+                @if(Session::has('success'))
                     <div class="row mb-2">
                         <div class="col-lg-12">
-                            <div class="alert alert-success" role="alert">{{ session('message') }}</div>
+                            <div class="alert alert-success" role="alert">{{ Session::get('success') }}</div>
+                        </div>
+                    </div>
+                @endif
+                @if(Session::has('error'))
+                    <div class="row mb-2">
+                        <div class="col-lg-12">
+                            <div class="alert alert-danger" role="alert">{{ Session::get('error') }}</div>
                         </div>
                     </div>
                 @endif

@@ -100,6 +100,24 @@
                     {{ trans('global.systemCalendar') }}
                 </a>
             </li>
+            <li class="nav-item nav-dropdown {{ request()->is('admin/cities') || request()->is('admin/cities/*') ? 'open' : '' }}">
+                <a class="nav-link  nav-dropdown-toggle" href="#">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    {{ trans('global.settings') }}
+                </a>
+                <ul class="nav-dropdown-items">
+                    @can('city_access')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.cities.index') }}" class="nav-link {{ request()->is('admin/cities') || request()->is('admin/cities/*') ? 'active' : '' }}">
+                                <i class=" nav-icon fas fa-city"></i>
+                            {{ trans("global.cites") }}
+                            </a>
+                        </li>
+                    @endcan
+                       
+                   
+                </ul>
+            </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                     <i class="nav-icon fas fa-fw fa-sign-out-alt">

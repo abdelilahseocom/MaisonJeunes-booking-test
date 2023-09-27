@@ -78,11 +78,22 @@ $(function() {
 
 // Datatables
 let permissions_datatable = $('.datatable-Permission');
+let cities_datatable = $('.cities-Permission');
 
 if(permissions_datatable.length>0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
         permissions_datatable.DataTable({ buttons: dtButtons})
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+            $($.fn.dataTable.tables(true)).DataTable()
+                .columns.adjust();
+        });
+    })
+}
+if(cities_datatable.length>0) {
+    $(function () {
+        let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+        cities_datatable.DataTable({ buttons: dtButtons})
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();

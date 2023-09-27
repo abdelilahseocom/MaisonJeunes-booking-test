@@ -1,5 +1,4 @@
 <?php
-
 use App\Permission;
 use Illuminate\Database\Seeder;
 
@@ -187,6 +186,31 @@ class PermissionsTableSeeder extends Seeder
                 'id'         => '36',
                 'name'      => 'booking_access',
                 'title'       => "Accès à la réservation",
+            ],
+            [
+                'id'         => '37',
+                'name'      => 'city_create',
+                'title'       => "Créer une ville",
+            ],
+            [
+                'id'         => '38',
+                'name'      => 'city_edit',
+                'title'       => "Modifier la ville",
+            ],
+            [
+                'id'         => '39',
+                'name'      => 'city_show',
+                'title'       => "Afficher la ville",
+            ],
+            [
+                'id'         => '40',
+                'name'      => 'city_delete',
+                'title'       => "Supprimer la ville",
+            ],
+            [
+                'id'         => '41',
+                'name'      => 'city_access',
+                'title'       => "Accès à la ville",
             ]
         ];
 
