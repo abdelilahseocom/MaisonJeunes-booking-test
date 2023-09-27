@@ -34,6 +34,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Appointments
     Route::delete('appointments/destroy', 'AppointmentsController@massDestroy')->name('appointments.massDestroy');
     Route::resource('appointments', 'AppointmentsController');
+    
+    // cities
+    Route::resource('cities', "CityController");
+    Route::post("get-provinces-by-region","HomeController@getProvincesByRegion")->name("get_provinces_by_region");
+    Route::post("get-cities-by-province","HomeController@getCitiesByProvince")->name("get_cities_by_province");
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
 });

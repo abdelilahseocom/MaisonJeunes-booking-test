@@ -17,6 +17,7 @@ return [
     'forgot_password'                      => 'Forgot your password?',
     'home'                                 => 'Home',
     'list'                                 => 'List',
+    'list_empty'                           => 'The list is empty',
     'login'                                => 'Login',
     'login_email'                          => 'Email',
     'login_password'                       => 'Password',
@@ -36,6 +37,8 @@ return [
     'search_input_too_short'               => 'Please enter :count or more characters',
     'show'                                 => 'Show',
     'systemCalendar'                       => 'Calendar',
+    'settings'                              => 'Configurations',
+    'cites'                                 => 'Cities',
     'thankYouForUsingOurApplication'       => 'Thank you for using our website',
     'timeFrom'                             => 'From',
     'timeTo'                               => 'To',
@@ -247,5 +250,6 @@ return [
     'content'                              => 'Content',
     'no_alerts'                            => 'No alerts',
     'calendar'                             => 'Calendar',
+    'messenger'                            => 'Messenger',
     'messenger'                            => 'Messenger',
 ];
