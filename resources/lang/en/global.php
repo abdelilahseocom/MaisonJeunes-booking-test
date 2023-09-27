@@ -252,4 +252,7 @@ return [
     'calendar'                             => 'Calendar',
     'messenger'                            => 'Messenger',
     'messenger'                            => 'Messenger',
+    'success_msg'                          => 'The operation was successful',
+    'error_msg'                            => 'The operation was not successful',
+
 ];

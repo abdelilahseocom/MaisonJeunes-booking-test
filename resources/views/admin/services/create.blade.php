@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">{{ trans('cruds.service.fields.name') }}*</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($service) ? $service->name : '') }}" required>
+                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
                 @if($errors->has('name'))
                     <em class="invalid-feedback">
                         {{ $errors->first('name') }}
@@ -19,18 +19,6 @@
                 @endif
                 <p class="helper-block">
                     {{ trans('cruds.service.fields.name_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('price') ? 'has-error' : '' }}">
-                <label for="price">{{ trans('cruds.service.fields.price') }}</label>
-                <input type="number" id="price" name="price" class="form-control" value="{{ old('price', isset($service) ? $service->price : '') }}" step="0.01">
-                @if($errors->has('price'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('price') }}
-                    </em>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.service.fields.price_helper') }}
                 </p>
             </div>
             <div>
