@@ -7,7 +7,10 @@ return [
     ],
     'permission'     => [
         'title'          => 'Autorisations',
+        'title_list'          => 'List des Autorisations',
         'title_singular' => 'Autorisation',
+        'edit_autorisation' => "Modifier l'autorisation",
+        'show_autorisation' => "Afficher l'autorisation",
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => '',

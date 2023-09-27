@@ -2,7 +2,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        Liste des autorisations
+        {{ trans('cruds.permission.title_list') }}
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -11,8 +11,8 @@
                     <tr>
                         <th width="10"></th>
                         <th>{{ trans('cruds.permission.fields.id') }}</th>
-                        <th>Nom</th>
-                        <th>Actions</th>
+                        <th>{{ trans('global.name') }}</th>
+                        <th>{{ trans('global.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>

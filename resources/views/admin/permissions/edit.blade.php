@@ -3,9 +3,8 @@
 
 <div class="card">
     <div class="card-header">
-        Modifier l'autorisation
+        {{ trans('cruds.permission.edit_autorisation') }}
     </div>
-
     <div class="card-body">
         <form action="{{ route("admin.permissions.update", [$permission->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -23,7 +22,7 @@
                 </p>
             </div>
             <div>
-                <input class="btn btn-danger" type="submit" value="Sauvegarder">
+                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
     </div>

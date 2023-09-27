@@ -8,6 +8,9 @@ return [
     'permission'     => [
         'title'          => 'Permissions',
         'title_singular' => 'Permission',
+        'title_list'          => 'Permissions list',
+        'edit_autorisation' => "Edit permission",
+        'show_autorisation' => "Show permission",
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => '',
