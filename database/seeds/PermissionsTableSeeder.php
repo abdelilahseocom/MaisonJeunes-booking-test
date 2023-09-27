@@ -114,27 +114,27 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'         => '22',
-                'name'      => 'youth_center_create',
+                'name'      => 'youth-center_create',
                 'title'       => "Créer la maison des jeunes",
             ],
             [
                 'id'         => '23',
-                'name'      => 'youth_center_edit',
+                'name'      => 'youth-center_edit',
                 'title'       => "Modifier la maison des jeunes",
             ],
             [
                 'id'         => '24',
-                'name'      => 'youth_center_show',
+                'name'      => 'youth-center_show',
                 'title'       => "Afficher la maison des jeunes",
             ],
             [
                 'id'         => '25',
-                'name'      => 'youth_center_delete',
+                'name'      => 'youth-center_delete',
                 'title'       => "Supprimer la maison des jeunes",
             ],
             [
                 'id'         => '26',
-                'name'      => 'youth_center_access',
+                'name'      => 'youth-center_access',
                 'title'       => "Accès au maison des jeunes",
             ],
             [

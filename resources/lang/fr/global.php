@@ -253,5 +253,14 @@ return [
     'messenger'                             => 'Messagerie',
     'success_msg'                           => 'l\'opération à été effectuée avec succès',
     'error_msg'                             => 'l\'opération n\'à pas été effectuée avec succès',
+    'permission_manage' => [
+        'youth-center' => "Gestion des maison des jeunes",
+        'client'       => 'Gestion des client',
+        'service'      => 'Gestion des services',
+        'booking'      => 'Gestion des réservation',
+        'permission'  => "Gestion d'Autorisations",
+        'role'         => 'Gestion des rôles',
+        'user'         => 'Gestion des utilisateurs'
+    ],
 
 ];

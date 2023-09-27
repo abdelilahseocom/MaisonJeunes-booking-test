@@ -1,5 +1,6 @@
 import fr_lang from "./language_fr.json" assert { type: "json" };
 const datatable_lang_fr = fr_lang;
+// Default parametres of datatables
 $(function() {
     let copyButtonTrans = 'Copier'
     let csvButtonTrans = 'CSV'
@@ -80,6 +81,7 @@ $(function() {
 let permissions_datatable = $('.datatable-Permission');
 let cities_datatable = $('.cities-Permission');
 let  datatable_services = $('.datatable-services');
+let roles_datatable = $('.datatable-Role');
 
 if(permissions_datatable.length>0) {
     $(function () {
@@ -95,6 +97,12 @@ if(cities_datatable.length>0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
         cities_datatable.DataTable({ buttons: dtButtons})
+    });
+}
+if(roles_datatable.length>0) {
+    $(function () {
+        let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+        permissions_datatable.DataTable({ buttons: dtButtons})
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();

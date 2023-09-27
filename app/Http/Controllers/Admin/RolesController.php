@@ -10,6 +10,7 @@ use App\Permission;
 use App\Role;
 use Gate;
 use Illuminate\Http\Request;
+use SebastianBergmann\Environment\Console;
 use Symfony\Component\HttpFoundation\Response;
 
 class RolesController extends Controller
@@ -27,9 +28,12 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permissions = Permission::all()->pluck('title', 'id');
-
-        return view('admin.roles.create', compact('permissions'));
+        $permissions = Permission::get();
+        $collectPermissions = collect($permissions);
+        $permissionGroups = $collectPermissions->groupBy(function($item,$key) {
+            return strtok($item['name'], '_');
+        })->all();
+        return view('admin.roles.create', compact('permissionGroups'));
     }
 
     public function store(StoreRoleRequest $request)
@@ -44,11 +48,14 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permissions = Permission::all()->pluck('title', 'id');
-
+        $permissions = Permission::get();
+        $collectPermissions = collect($permissions);
+        $permissionGroups = $collectPermissions->groupBy(function($item,$key) {
+            return strtok($item['name'], '_');
+        })->all();
         $role->load('permissions');
 
-        return view('admin.roles.edit', compact('permissions', 'role'));
+        return view('admin.roles.edit', compact('permissionGroups', 'role'));
     }
 
     public function update(UpdateRoleRequest $request, Role $role)

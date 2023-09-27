@@ -109,3 +109,22 @@ table.dataTable thead .sorting_desc {
 .obligatory {
     color: red;
 }
+/********* Sidebar customization  *********/
+.sidebar .sidebar-nav {
+    width: 226px;
+}
+.sidebar .nav {
+    width: 226px;
+}
+@media (min-width: 992px) {
+    .sidebar-fixed .sidebar {
+        width: 226px;
+    }
+}
+/****** Roles pages ******/
+.datatable-Role thead tr th:nth-child(4) {
+    width: 65%;
+}
+.form-check-input , .form-check-label {
+    cursor: pointer;
+}

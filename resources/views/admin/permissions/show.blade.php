@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header">
-        Afficher l'autorisation
+        {{ trans('cruds.permission.show_autorisation') }}
     </div>
     <div class="card-body">
         <div class="mb-2">
@@ -19,7 +19,7 @@
                     </tr>
                 </tbody>
             </table>
-            <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">Retour à la liste</a>
+            <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">{{ trans('global.back_to_list') }}</a>
         </div>
     </div>
 </div>
