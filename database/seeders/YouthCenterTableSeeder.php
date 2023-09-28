@@ -1,6 +1,6 @@
 <?php
 
-
+namespace Database\Seeders;
 use App\City;
 use App\YouthCenter;
 use Illuminate\Database\Seeder;

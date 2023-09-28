@@ -1,5 +1,6 @@
 <?php
 
+namespace Database\Seeders;
 use App\City;
 use App\Province;
 use App\Region;
