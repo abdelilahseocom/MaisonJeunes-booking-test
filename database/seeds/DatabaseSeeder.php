@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             ServicesTableSeeder::class,
             ClientsTableSeeder::class,
             RegionsTableSeeder::class,
+            YouthCenterTableSeeder::class,
         ]);
     }
 }
