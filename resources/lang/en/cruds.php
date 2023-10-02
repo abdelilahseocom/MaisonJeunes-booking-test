@@ -130,9 +130,9 @@ return [
             'deleted_at_helper' => '',
         ],
     ],
-    'appointment'    => [
-        'title'          => 'Appointments',
-        'title_singular' => 'Appointment',
+    'booking'    => [
+        'title'          => 'Bookings',
+        'title_singular' => 'Booking',
         'fields'         => [
             'id'                 => 'ID',
             'id_helper'          => '',

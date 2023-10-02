@@ -18,15 +18,12 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-Role">
                 <thead>
                     <tr>
-                        <th width="10">
-
-                        </th>
                         <th>
                             {{ trans('cruds.role.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.role.fields.title') }}
-                        </th>
+                        </th>z
                         <th>
                             {{ trans('cruds.role.fields.permissions') }}
                         </th>
@@ -38,9 +35,6 @@
                 <tbody>
                     @foreach($roles as $key => $role)
                         <tr data-entry-id="{{ $role->id }}">
-                            <td>
-
-                            </td>
                             <td>
                                 {{ $role->id ?? '' }}
                             </td>
@@ -60,7 +54,7 @@
                                 @endcan
 
                                 @can('role_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.roles.edit', $role->id) }}">
+                                    <a class="btn btn-xs btn-warning" href="{{ route('admin.roles.edit', $role->id) }}">
                                         <i class="far fa-edit"></i>
                                     </a>
                                 @endcan

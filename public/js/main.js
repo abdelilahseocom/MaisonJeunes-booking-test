@@ -22,9 +22,9 @@ $('.date').datetimepicker({
 
 $('.datetime').datetimepicker({
     format: 'YYYY-MM-DD HH:mm',
-    locale: 'en',
+    locale: 'fr',
     sideBySide: true,
-    stepping: 15
+    stepping: 5
 })
 
 $('.timepicker').datetimepicker({

@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.employee.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.booking.title') }}
     </div>
 
     <div class="card-body">
@@ -12,58 +12,54 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.employee.fields.id') }}
+                            {{ trans('cruds.booking.fields.id') }}
                         </th>
                         <td>
-                            {{ $employee->id }}
+                            {{ $booking->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.employee.fields.name') }}
+                            {{ trans('cruds.booking.fields.client') }}
                         </th>
                         <td>
-                            {{ $employee->name }}
+                            {{ $booking->client->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.employee.fields.email') }}
+                            {{ trans('cruds.booking.fields.start_time') }}
                         </th>
                         <td>
-                            {{ $employee->email }}
+                            {{ $booking->start_time }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.employee.fields.phone') }}
+                            {{ trans('cruds.booking.fields.finish_time') }}
                         </th>
                         <td>
-                            {{ $employee->phone }}
+                            {{ $booking->finish_time }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.employee.fields.photo') }}
+                            {{ trans('cruds.booking.fields.comments') }}
                         </th>
                         <td>
-                            @if($employee->photo)
-                                <a href="{{ $employee->photo->getUrl() }}" target="_blank">
-                                    <img src="{{ $employee->photo->getUrl('thumb') }}" width="50px" height="50px">
-                                </a>
-                            @endif
+                            {!! $booking->comments !!}
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>
                             Services
                         </th>
                         <td>
-                            @foreach($employee->services as $id => $services)
+                            @foreach($booking->services as $id => $services)
                                 <span class="label label-info label-many">{{ $services->name }}</span>
                             @endforeach
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
             <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
@@ -71,14 +67,7 @@
             </a>
         </div>
 
-        <nav class="mb-3">
-            <div class="nav nav-tabs">
 
-            </div>
-        </nav>
-        <div class="tab-content">
-
-        </div>
     </div>
 </div>
 @endsection

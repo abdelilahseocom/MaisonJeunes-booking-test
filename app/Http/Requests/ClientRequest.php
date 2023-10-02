@@ -7,7 +7,7 @@ use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class StoreClientRequest extends FormRequest
+class ClientRequest extends FormRequest
 {
     public function authorize()
     {
@@ -19,6 +19,9 @@ class StoreClientRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => [
+                'required',
+            ],
         ];
     }
 }

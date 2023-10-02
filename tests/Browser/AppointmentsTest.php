@@ -13,8 +13,8 @@ class AppointmentsTest extends DuskTestCase
         $admin = \App\User::find(1);
         $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin);
-            $browser->visit(route('admin.appointments.index'));
-            $browser->assertRouteIs('admin.appointments.index');
+            $browser->visit(route('admin.bookings.index'));
+            $browser->assertRouteIs('admin.bookings.index');
         });
     }
 }

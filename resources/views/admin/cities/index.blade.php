@@ -17,7 +17,7 @@
             {{ trans('cruds.cities.fields.cities_list') }}
         </div>
         <div class="card-body">
-            <table class="datatable-Permission table table-bordered table-striped table-hover ajaxTable datatable datatable-Client">
+            <table class="datatable-Permission table table-bordered table-striped table-hover ajaxTable datatable datatable-cities">
                 <thead>
                     
                     <tr>

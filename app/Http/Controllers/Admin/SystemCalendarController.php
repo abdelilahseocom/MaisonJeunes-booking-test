@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Appointment;
+use App\Booking;
 use App\Http\Controllers\Controller;
 
 class SystemCalendarController extends Controller
@@ -12,17 +12,17 @@ class SystemCalendarController extends Controller
     {
         $events = [];
 
-        $appointments = Appointment::with(['client', 'employee'])->get();
+        $bookings = Booking::with(['client'])->get();
 
-        foreach ($appointments as $appointment) {
-            if (!$appointment->start_time) {
+        foreach ($bookings as $booking) {
+            if (!$booking->start_time) {
                 continue;
             }
 
             $events[] = [
-                'title' => $appointment->client->name ,
-                'start' => $appointment->start_time,
-                'url'   => route('admin.appointments.edit', $appointment->id),
+                'title' => $booking->client->name ,
+                'start' => $booking->start_time,
+                'url'   => route('admin.bookings.edit', $booking->id),
             ];
         }
 

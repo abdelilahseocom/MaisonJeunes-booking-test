@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Appointment;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreAppointmentRequest;
-use App\Http\Requests\UpdateAppointmentRequest;
+use App\Http\Requests\BookingRequest;
 use App\Http\Resources\Admin\AppointmentResource;
 use Gate;
 use Illuminate\Http\Request;
@@ -20,7 +19,7 @@ class AppointmentsApiController extends Controller
         return new AppointmentResource(Appointment::with(['client', 'employee', 'services'])->get());
     }
 
-    public function store(StoreAppointmentRequest $request)
+    public function store(BookingRequest $request)
     {
         $appointment = Appointment::create($request->all());
         $appointment->services()->sync($request->input('services', []));
@@ -37,7 +36,7 @@ class AppointmentsApiController extends Controller
         return new AppointmentResource($appointment->load(['client', 'employee', 'services']));
     }
 
-    public function update(UpdateAppointmentRequest $request, Appointment $appointment)
+    public function update(BookingRequest $request, Appointment $appointment)
     {
         $appointment->update($request->all());
         $appointment->services()->sync($request->input('services', []));

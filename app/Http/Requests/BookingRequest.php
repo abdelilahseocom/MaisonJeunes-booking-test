@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Appointment;
+use App\Booking;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class StoreAppointmentRequest extends FormRequest
+class BookingRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('appointment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('booking_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -22,14 +22,6 @@ class StoreAppointmentRequest extends FormRequest
             'client_id'   => [
                 'required',
                 'integer',
-            ],
-            'start_time'  => [
-                'required',
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
-            ],
-            'finish_time' => [
-                'required',
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             ],
             'services.*'  => [
                 'integer',

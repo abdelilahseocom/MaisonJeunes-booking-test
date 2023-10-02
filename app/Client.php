@@ -27,8 +27,8 @@ class Client extends Model
         'deleted_at',
     ];
 
-    public function appointments()
+    public function bookings()
     {
-        return $this->hasMany(Appointment::class, 'client_id', 'id');
+        return $this->hasMany(Booking::class, 'client_id', 'id');
     }
 }
