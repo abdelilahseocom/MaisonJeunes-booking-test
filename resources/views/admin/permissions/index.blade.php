@@ -9,7 +9,6 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-Permission">
                 <thead>
                     <tr>
-                        <th width="10"></th>
                         <th>{{ trans('cruds.permission.fields.id') }}</th>
                         <th>{{ trans('global.name') }}</th>
                         <th>{{ trans('global.actions') }}</th>
@@ -18,7 +17,6 @@
                 <tbody>
                     @foreach($permissions as $key => $permission)
                         <tr data-entry-id="{{ $permission->id }}">
-                            <td></td>
                             <td>
                                 {{ $permission->id ?? '' }}
                             </td>
@@ -33,7 +31,7 @@
                                 @endcan
 
                                 @can('permission_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.permissions.edit', $permission->id) }}">
+                                    <a class="btn btn-xs btn-warning" href="{{ route('admin.permissions.edit', $permission->id) }}">
                                         <i class="far fa-edit"></i>
                                     </a>
                                 @endcan

@@ -131,7 +131,7 @@ table.dataTable thead .sorting_desc {
     }
 }
 /****** Roles pages ******/
-.datatable-Role thead tr th:nth-child(4) {
+.datatable-Role thead tr th:nth-child(3) {
     width: 65%;
 }
 .form-check-input , .form-check-label {

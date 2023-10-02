@@ -22,18 +22,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('services/destroy', 'ServicesController@massDestroy')->name('services.massDestroy');
     Route::resource('services', 'ServicesController');
 
-    // Employees
-    Route::delete('employees/destroy', 'EmployeesController@massDestroy')->name('employees.massDestroy');
-    Route::post('employees/media', 'EmployeesController@storeMedia')->name('employees.storeMedia');
-    Route::resource('employees', 'EmployeesController');
-
     // Clients
     Route::delete('clients/destroy', 'ClientsController@massDestroy')->name('clients.massDestroy');
     Route::resource('clients', 'ClientsController');
 
     // Appointments
-    Route::delete('appointments/destroy', 'AppointmentsController@massDestroy')->name('appointments.massDestroy');
-    Route::resource('appointments', 'AppointmentsController');
+    Route::delete('bookings/destroy', 'BookingController@massDestroy')->name('bookings.massDestroy');
+    Route::resource('bookings', 'BookingController');
     
     // cities
     Route::resource('cities', "CityController");

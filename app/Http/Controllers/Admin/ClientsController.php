@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyClientRequest;
-use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\ClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use Gate;
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class ClientsController extends Controller
                 return $row->email ? $row->email : "";
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions']);
 
             return $table->make(true);
         }
@@ -66,10 +66,9 @@ class ClientsController extends Controller
         return view('admin.clients.create');
     }
 
-    public function store(StoreClientRequest $request)
+    public function store(ClientRequest $request)
     {
         $client = Client::create($request->all());
-
         return redirect()->route('admin.clients.index');
     }
 
@@ -83,7 +82,6 @@ class ClientsController extends Controller
     public function update(UpdateClientRequest $request, Client $client)
     {
         $client->update($request->all());
-
         return redirect()->route('admin.clients.index');
     }
 

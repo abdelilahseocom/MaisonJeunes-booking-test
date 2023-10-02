@@ -18,9 +18,6 @@
             <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Permission datatable-Service">
                 <thead>
                     <tr>
-                        <th width="10">
-
-                        </th>
                         <th>
                             {{ trans('cruds.service.fields.name') }}
                         </th>
@@ -34,26 +31,24 @@
                     @foreach ($services as $service)
                         <tr>
                             <td>
-                            </td>
-                            <td>
                                 {{ $service->name }}
                             </td>
                             <td>
                                 @can('service_edit')
                                     <a href="{{ route('admin.services.edit', ['service' => $service->id]) }}"
-                                        class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                        class="btn btn-warning btn-xs"><i class="far fa-edit"></i>
+                                    </a>
                                 @endcan
                                 @can('service_show')
                                     <a href="{{ route('admin.services.show', ['service' => $service->id]) }}"
-                                        class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                                        class="btn btn-info btn-xs"><i class="fas fa-eye"></i> </a>
                                 @endcan
                                 @can('service_delete')
                                     <form class="d-inline" action="{{ route('admin.services.destroy', ['service' => $service->id]) }}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit"><i
-                                                class="fas fa-trash"></i></button>
+                                        <a class="btn btn-xs btn-danger text-light"><i class="far fa-trash-alt"></i></a>
                                     </form>
                                 @endcan
                             </td>
@@ -70,7 +65,12 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('js/datatables/datatables.js') }}" type="module"></script>
-
 @parent
-<script></script>
+<script>
+    $(function () {
+        $(".datatable-Service").on( "click", ".btn-danger", async function() {
+            await deleteRecordWithconfirmMessage(undefined, undefined, undefined, $(this).parents('form'));
+        })
+    });
+</script>
 @endsection

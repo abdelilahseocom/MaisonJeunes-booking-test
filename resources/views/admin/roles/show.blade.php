@@ -32,7 +32,7 @@
                         </th>
                         <td>
                             @foreach($role->permissions as $id => $permissions)
-                                <span class="label label-info label-many">{{ $permissions->title }}</span>
+                                <span class="badge badge-pill badge-primary text-white">{{ $permissions->title }}</span>
                             @endforeach
                         </td>
                     </tr>
