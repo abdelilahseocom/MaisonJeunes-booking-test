@@ -31,11 +31,11 @@
                         {{ trans('cruds.booking.fields.end_time') }}
                     </th>
                     <th>
-                        {{ trans('cruds.booking.fields.comments') }}
+                        {{ trans('cruds.booking.fields.comment') }}
                     </th>
-                    {{-- <th>
-                        {{ trans('cruds.booking.fields.services') }}
-                    </th> --}}
+                    <th>
+                        {{ trans('global.type') }}
+                    </th>
                     <th>
                         &nbsp;
                     </th>

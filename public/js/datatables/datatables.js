@@ -82,7 +82,6 @@ let users_datatable = $('.datatable-User');
 let booking_datatable = $('.datatable-booking');
 let clients_datatable = $('.datatable-clients');
 
-
 if(permissions_datatable.length>0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
@@ -144,6 +143,7 @@ if(booking_datatable.length>0) {
                 { data: 'start_time', name: 'start_time' },
                 { data: 'end_time', name: 'end_time' },
                 { data: 'comment', name: 'comment' },
+                { data: 'type', name: 'type' },
                 { data: 'actions', name: 'actions' }
             ],
             order: [[ 1, 'desc' ]],

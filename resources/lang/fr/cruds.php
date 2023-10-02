@@ -146,7 +146,7 @@ return [
             'end_time_helper' => '',
             'price'              => 'Prix',
             'price_helper'       => '',
-            'comment'           => '',
+            'comment'           => 'Commentaire',
             'comment_helper'    => '',
             'services'           => 'Services',
             'services_helper'    => '',

@@ -47,4 +47,8 @@ class GlobalService{
         }
         return $data;
     }
+
+    public static function getUserWorkplaces($user) {
+        
+    }
 }

@@ -18,10 +18,10 @@ class SystemCalendarController extends Controller
             if (!$booking->start_time) {
                 continue;
             }
-
             $events[] = [
                 'title' => $booking->client->name ,
                 'start' => $booking->start_time,
+                'end' => $booking->end_time,
                 'url'   => route('admin.bookings.edit', $booking->id),
             ];
         }

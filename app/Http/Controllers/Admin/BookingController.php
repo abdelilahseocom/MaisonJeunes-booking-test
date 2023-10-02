@@ -22,7 +22,6 @@ class BookingController extends Controller
             $query = Booking::with(['client'])->select(sprintf('%s.*', (new Booking)->table));
             $table = Datatables::of($query);
 
-            $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
