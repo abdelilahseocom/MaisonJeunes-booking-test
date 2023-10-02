@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('cities', "CityController");
     Route::post("get-provinces-by-region","HomeController@getProvincesByRegion")->name("get_provinces_by_region");
     Route::post("get-cities-by-province","HomeController@getCitiesByProvince")->name("get_cities_by_province");
+    Route::post("get-youth-centers-by-province","HomeController@getYouthCentersByProvince")->name("get_youth_center_by_province");
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
 });

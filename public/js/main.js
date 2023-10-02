@@ -42,17 +42,20 @@ $('.deselect-all').click(function () {
     })
 })
 
-$('.select2').select2()
+$('.select2').select2({
+    placeholder: "Veuillez sélectionner une option",
+    allowClear: true
+});
 
 $('.treeview').each(function () {
     var shouldExpand = false
     $(this).find('li').each(function () {
-    if ($(this).hasClass('active')) {
-        shouldExpand = true
-    }
+        if ($(this).hasClass('active')) {
+            shouldExpand = true
+        }
     })
     if (shouldExpand) {
-    $(this).addClass('active')
+        $(this).addClass('active')
     }
 })
 })

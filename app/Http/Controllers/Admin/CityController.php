@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\City;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CityRequest;
+use App\Province;
 use App\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -89,9 +90,11 @@ class CityController extends Controller
 
         $city = City::with(["province.region"])->findOrFail($city_id);
         $regions = Region::get();
+        $provinces = Province::where('region_id', $city->province->region->id)->get()->pluck('name', 'id');
         return view("admin.cities.edit",[
             "city"=>$city,
             "regions"=>$regions,
+            "provinces" => $provinces
         ]);
        
     }

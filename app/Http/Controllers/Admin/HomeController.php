@@ -12,11 +12,12 @@ class HomeController
     {
         return view('home');
     }
-    public function getProvincesByRegion(Request $request){
 
+    public function getProvincesByRegion(Request $request){
         try {
             $reseponse=[];
-            $provinces = GlobalService::getProvincesByRegion($request->region_id);
+            $region_id = !empty($request->data['id']) ? $request->data['id'] : '';
+            $provinces = GlobalService::getProvincesByRegion($region_id);
             $reseponse=["error"=>0,"message"=>"","data"=>$provinces];
            
         } catch (Exception $th) {
@@ -25,17 +26,32 @@ class HomeController
 
         return response()->json($reseponse);
     }
+    
     public function getCitiesByProvince(Request $request){
 
         try {
             $reseponse=[];
-            $cities = GlobalService::getCitiesByProvince($request->province_id);
+            $city_id = !empty($request->data['id']) ? $request->data['id'] : '';
+            $cities = GlobalService::getCitiesByProvince($city_id);
             $reseponse=["error"=>0,"message"=>"","data"=>$cities];
            
         } catch (Exception $th) {
             $reseponse=["error"=>1,"message"=>$th->getMessage(),"data"=>null];
         }
 
+        return response()->json($reseponse);
+    }
+
+    public function getYouthCentersByProvince(Request $request){
+        try {
+            $reseponse=[];
+            $youthcenter_id = !empty($request->data['id']) ? $request->data['id'] : '';
+            $youthcenters = GlobalService::getYouthCentersByProvince($youthcenter_id);
+            $reseponse=["error"=>0,"message"=>"","data"=>$youthcenters];
+           
+        } catch (Exception $th) {
+            $reseponse=["error"=>1,"message"=>$th->getMessage(),"data"=>null];
+        }
         return response()->json($reseponse);
     }
 }
