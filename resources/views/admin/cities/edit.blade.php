@@ -26,13 +26,16 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group {{ $errors->has('province_id') ? 'has-error' : '' }}">
-                        <label for="province_id">{{ trans("cruds.cities.fields.name") ." ". trans("cruds.cities.fields.city") }} <span class="text-danger">* </span>  </label>
+                        <label for="province_id">{{ trans("cruds.cities.fields.province") }} <span class="text-danger">* </span>  </label>
                         <select name="province_id" id="province_id" class="form-control select2" required>
-                            <option value="">La liste est vide</option>
+                            <option value=""></option>
+                            @foreach($provinces as $id => $province)
+                                <option value="{{ $id }}" {{ old('province_id') || $id==$city->province->id ? "selected" : "" }}>{{ $province }}</option>
+                            @endforeach
                         </select>
-                        @if ($errors->has('region_id'))
+                        @if ($errors->has('province_id'))
                             <em class="invalid-feedback">
-                                {{ $errors->first('region_id') }}
+                                {{ $errors->first('province_id') }}
                             </em>
                         @endif
                     </div>
@@ -52,55 +55,15 @@
                     <input class="btn btn-danger" type="submit" value="{{ trans("global.save") }}">
                 </div>
             </form>
-
-
         </div>
     </div>
 @endsection
 
 @section('scripts')
     <script>
-        fillSelectProvinces();
+        // Populate Provinces      
         $(document).on("change","#region_id",function(){
-            fillSelectProvinces();
+            fillSelectByData("/admin/get-provinces-by-region", this, "province_id");
         })
-
-       
-        function getProvincesByRegion() {
-           return $.ajax({
-                type: "POST",
-                url: "{{ route('admin.get_provinces_by_region') }}",
-                data: {
-                    region_id: $("#region_id").val(),
-                    _token: "{{ csrf_token() }}"
-                },
-                dataType: 'json',
-            });
-        }
-       
-        function fillSelectProvinces(){
-            getProvincesByRegion()
-            .then(function(res){
-                var provinceOption=``
-                var provinceSelected = @json($city->province->id);
-                if (res.error==0 && res.data!=null) {
-                    res.data.forEach((element)=>{
-                        var attr="";
-                        if (provinceSelected==element.id) {
-                            attr="selected";
-                        }
-                        provinceOption+=`<option ${attr} value="${element.id}" >${element.name} </option>`;
-
-                    })
-                    $("#province_id").html(provinceOption);
-                }
-            })
-            .catch(function(res){
-                var provinceOption=`<option value=""></option>`
-                $("#province_id").html(provinceOption);
-            })
-        }
-
-   
     </script>
 @endsection

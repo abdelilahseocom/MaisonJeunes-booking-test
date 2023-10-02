@@ -31,7 +31,8 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
         'created_at',
@@ -61,5 +62,21 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * user full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+
+    public function workplace()
+    {
+        return $this->hasOne(UserWorkPlace::class);
     }
 }

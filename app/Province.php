@@ -13,7 +13,13 @@ class Province extends Model
     public function region(){
         return $this->belongsTo(Region::class,"region_id","id");
     }
+
     public function cities(){
         return $this->hasMany(City::class,"province_id","id");
+    }
+
+    public function manager()
+    {
+        return $this->morphMany(UserWorkPlace::class, 'workplaceable', 'model_type', 'model_id');
     }
 }
