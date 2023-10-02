@@ -146,6 +146,7 @@ return [
             'finish_time_helper' => '',
             'price'              => 'Price',
             'price_helper'       => '',
+            'comment'            => 'Comment',
             'comments'           => 'Comments',
             'comments_helper'    => '',
             'services'           => 'Services',

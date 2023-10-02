@@ -59,6 +59,20 @@
                     {{ trans('cruds.booking.fields.comment_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
+                <label for="type">Type<span class="text-danger">* </span></label>
+                <select name="type" id="type" class="form-control" required>
+                    <option value="">Veuillez sélectionner une option</option>
+                    @foreach (Constants::getBookingTypes() as $type)
+                        <option value="{{ $type['value'] }}" {{ $type['value'] == $booking->type ? 'selected' : '' }}>{{ $type['name'] }}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('type'))
+                    <em class="invalid-feedback">
+                        {{ $errors->first('type') }}
+                    </em>
+                @endif
+            </div>
             {{-- <div class="form-group {{ $errors->has('services') ? 'has-error' : '' }}">
                 <label for="services">{{ trans('cruds.booking.fields.services') }}
                     <span class="btn btn-info btn-xs select-all">{{ trans('global.select_all') }}</span>

@@ -5,7 +5,6 @@
     <div class="card-header">
         {{ trans('global.edit') }} {{ trans('cruds.client.title_singular') }}
     </div>
-
     <div class="card-body">
         <form action="{{ route("admin.clients.update", [$client->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -46,12 +45,24 @@
                     {{ trans('cruds.client.fields.email_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
+                <label for="type">Type<span class="text-danger">* </span></label>
+                <select name="type" id="type" class="form-control" required>
+                    <option value="">Veuillez sélectionner une option</option>
+                    @foreach (Constants::getBookingTypes() as $type)
+                        <option value="{{ $type['value'] }}" {{ $type['value'] == $client->type ? 'selected' : '' }}>{{ $type['name'] }}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('type'))
+                    <em class="invalid-feedback">
+                        {{ $errors->first('type') }}
+                    </em>
+                @endif
+            </div>
             <div>
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
-
-
     </div>
 </div>
 @endsection

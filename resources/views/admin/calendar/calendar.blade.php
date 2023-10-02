@@ -27,6 +27,7 @@
         events ={!! json_encode($events) !!};
         $('#calendar').fullCalendar({
           // put your options and callbacks here
+          header: { center: 'year,listYear,month,agendaWeek' }, // buttons for switching between views
           events: events,
           defaultView: 'agendaWeek'
         })

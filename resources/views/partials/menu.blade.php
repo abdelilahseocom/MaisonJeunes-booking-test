@@ -52,7 +52,7 @@
             @can('client_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.clients.index") }}" class="nav-link {{ request()->is('admin/clients') || request()->is('admin/clients/*') ? 'active' : '' }}">
-                        <i class="fa-fw fas fa-cogs nav-icon"></i>
+                        <i class="fas fa-user-check nav-icon"></i>                        
                         {{ trans('cruds.client.title') }}
                     </a>
                 </li>
@@ -60,7 +60,7 @@
             @can('booking_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.bookings.index") }}" class="nav-link {{ request()->is('admin/bookings') || request()->is('admin/bookings/*') ? 'active' : '' }}">
-                        <i class="fa-fw fas fa-cogs nav-icon"></i>
+                        <i class="far fa-calendar-check nav-icon"></i>                        
                         {{ trans('cruds.booking.title') }}
                     </a>
                 </li>
@@ -80,7 +80,7 @@
                     @can('city_access')
                         <li class="nav-item">
                             <a href="{{ route('admin.cities.index') }}" class="nav-link {{ request()->is('admin/cities') || request()->is('admin/cities/*') ? 'active' : '' }}">
-                                <i class=" nav-icon fas fa-city"></i>
+                                <i class="fas fa-building nav-icon"></i>
                             {{ trans("global.cites") }}
                             </a>
                         </li>
