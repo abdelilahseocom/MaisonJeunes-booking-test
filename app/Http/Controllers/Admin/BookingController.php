@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyAppointmentRequest;
 use App\Http\Requests\BookingRequest;
 use App\Service;
+use App\Services\BookingService;
+use App\YouthCenter;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -131,5 +133,37 @@ class BookingController extends Controller
         Booking::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function createUnavailability(Request $request)
+    {
+        $youth_centers = YouthCenter::all()->pluck('name', 'id');
+        return view('admin.bookings.create_unavailability', compact('youth_centers'));
+    }
+
+    public function editUnavailability($id)
+    {
+        $booking = Booking::find($id);
+        $youth_centers = YouthCenter::all()->pluck('name', 'id');
+        return view('admin.bookings.create_unavailability', compact('youth_centers', 'booking'));
+    }
+
+    public function saveUnavailability(Request $request, BookingService $bookingservice) {
+        $data = $request->all();
+        $booking_id = !empty($request->booking_id) ? $request->booking_id : '';
+        $bookingservice->saveUnavailability($booking_id, $data);
+        $bookings = Booking::with(['client'])->get();
+        foreach ($bookings as $booking) {
+            if (!$booking->start_time) {
+                continue;
+            }
+            $events[] = [
+                'title' => $booking->type ,
+                'start' => $booking->start_time,
+                'end' => $booking->end_time,
+                'url'   => route('admin.bookings.edit', $booking->id),
+            ];
+        }
+        return view('admin.calendar.calendar', compact('events'));
     }
 }
