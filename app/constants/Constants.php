@@ -28,7 +28,6 @@ class Constants {
         return collect([
             ["name"=>"Indisponible","value"=>Constants::BOOKING_UNAVAILABLE],
             ["name"=>"Travaux","value"=>Constants::BOOKING_TRAVAUX],
-            ["name"=>"Service","value"=>Constants::BOOKING_SERVICE]
         ]);
     }
 }

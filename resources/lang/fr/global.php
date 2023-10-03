@@ -94,6 +94,7 @@ return [
     'budget'                                => 'Budget',
     'calendar_sources'                      => 'Sources de calendrier',
     'campaign'                              => 'Campagne',
+    'unavailability'                       => 'Indisponibilité',
     'campaigns'                             => 'Campagnes',
     'categories'                            => 'Catégories',
     'category'                              => 'Catégorie',

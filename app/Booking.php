@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
-    use SoftDeletes;
-
     public $table = 'bookings';
 
     protected $dates = [
@@ -16,7 +14,6 @@ class Booking extends Model
         'end_time',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected $fillable = [
@@ -28,7 +25,6 @@ class Booking extends Model
         'youth_center_service_id',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected $casts = [
@@ -42,4 +38,15 @@ class Booking extends Model
         return $this->belongsTo(Client::class, 'client_id');
     }
     
+    public function getTitleAttribute() {
+        $title = '';
+        if($this->type == "service") {
+            $title =  $this->client->name.' | ';
+        } else if($this->type == "travaux") {
+            $title = "Travaux"; 
+        } else {
+            $title =  "Indisponible";
+        }
+        return $title;
+    }
 }

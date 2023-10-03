@@ -74,11 +74,25 @@
                 </li>
             @endcan
             @can('booking_access')
-                <li class="nav-item">
-                    <a href="{{ route("admin.bookings.index") }}" class="nav-link {{ request()->is('admin/bookings') || request()->is('admin/bookings/*') ? 'active' : '' }}">
-                        <i class="far fa-calendar-check nav-icon"></i>                        
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link  nav-dropdown-toggle" href="#">
+                        <i class="far fa-calendar-check nav-icon"></i>
                         {{ trans('cruds.booking.title') }}
                     </a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a href="{{ route("admin.bookings.index") }}" class="nav-link {{ request()->is('admin/bookings') || request()->is('admin/bookings/*') ? 'active' : '' }}">
+                                <i class="far fa-calendar-check nav-icon"></i>                        
+                                {{ trans('global.list') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("admin.create_unavailability") }}" class="nav-link {{ request()->is('admin/unavailability') || request()->is('admin/unavailability/*') ? 'active' : '' }}">
+                                <i class="fa-fw fas fa-briefcase nav-icon"></i>
+                                {{ trans('global.unavailability') }}
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endcan
             <li class="nav-item">

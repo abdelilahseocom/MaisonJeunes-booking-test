@@ -26,10 +26,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('clients/destroy', 'ClientsController@massDestroy')->name('clients.massDestroy');
     Route::resource('clients', 'ClientsController');
 
-    // Appointments
+    // Bookings
     Route::delete('bookings/destroy', 'BookingController@massDestroy')->name('bookings.massDestroy');
     Route::resource('bookings', 'BookingController');
-    
+    Route::post('unavailability', 'BookingController@saveUnavailability')->name('save_unavailability');
+    Route::get('unavailability/create', 'BookingController@createUnavailability')->name('create_unavailability');
+    Route::get('unavailability/edit', 'BookingController@editUnavailability')->name('edit_unavailability');
+
     // cities
     Route::resource('cities', "CityController");
     Route::post("get-provinces-by-region","HomeController@getProvincesByRegion")->name("get_provinces_by_region");

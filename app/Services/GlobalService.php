@@ -48,7 +48,19 @@ class GlobalService{
         return $data;
     }
 
-    public static function getUserWorkplaces($user) {
-        
+    public static function getEventColor($type){
+        $color = "";
+        switch ($type) {
+            case 'unavailable':
+                $color = "#FF0000";
+                break;
+            case 'travaux':
+                $color = "#D1D100";
+                break;
+            default:
+                $color = "#3a87ad";
+            break;
+        };
+        return $color;
     }
 }
