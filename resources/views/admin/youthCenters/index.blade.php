@@ -3,7 +3,7 @@
     @can('youth-center_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
-                @can('youth_center_create')
+                @can('youth-center_create')
                     <a class="btn btn-success" href="{{ route('admin.youthCenters.create') }}">
                         {{ trans('global.add') . ' ' . trans('cruds.youth_centers.title_singular') }}
                     </a>

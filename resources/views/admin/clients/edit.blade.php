@@ -49,7 +49,7 @@
                 <label for="type">Type<span class="text-danger">* </span></label>
                 <select name="type" id="type" class="form-control" required>
                     <option value="">Veuillez sélectionner une option</option>
-                    @foreach (Constants::getBookingTypes() as $type)
+                    @foreach (Constants::getClientTypes() as $type)
                         <option value="{{ $type['value'] }}" {{ $type['value'] == $client->type ? 'selected' : '' }}>{{ $type['name'] }}</option>
                     @endforeach
                 </select>

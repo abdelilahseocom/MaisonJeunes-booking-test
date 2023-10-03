@@ -257,5 +257,15 @@ return [
     'messenger'                            => 'Messenger',
     'success_msg'                          => 'The operation was successful',
     'error_msg'                            => 'The operation was not successful',
+    'permission_manage' => [
+        'youth-center' => "Management of youth centers",
+        'client'       => 'Clients management',
+        'service'      => 'Services management',
+        'booking'      => 'Reservations management',
+        'permission'  => "Authorizations Management",
+        'role'         => 'Roles management',
+        'user'         => 'Users Management',
+        'city'         => 'Cities Management'
+    ],
 
 ];

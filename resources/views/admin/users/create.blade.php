@@ -10,7 +10,7 @@
         <form action="{{ route("admin.users.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group {{ $errors->has('lastname') ? 'has-error' : '' }}">
-                <label for="lastname">Nom<span class="obligatory">*</span></label>
+                <label for="lastname">{{ trans("cruds.user.fields.lastname") }}<span class="obligatory">*</span></label>
                 <input type="text" id="lastname" name="lastname" class="form-control" value="{{ old('lastname', isset($user) ? $user->lastname : '') }}" required>
                 @if($errors->has('lastname'))
                     <em class="invalid-feedback">
@@ -22,7 +22,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('firstname') ? 'has-error' : '' }}">
-                <label for="firstname">Prénom<span class="obligatory">*</span></label>
+                <label for="firstname">{{ trans("cruds.user.fields.firstname") }}<span class="obligatory">*</span></label>
                 <input type="text" id="firstname" name="firstname" class="form-control" value="{{ old('firstname', isset($user) ? $user->firstname : '') }}" required>
                 @if($errors->has('firstname'))
                     <em class="invalid-feedback">
@@ -34,7 +34,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                <label for="email">E-mail<span class="obligatory">*</span></label>
+                <label for="email">{{ trans("cruds.user.fields.email") }}<span class="obligatory">*</span></label>
                 <input type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($user) ? $user->email : '') }}" required>
                 @if($errors->has('email'))
                     <em class="invalid-feedback">
@@ -46,7 +46,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                <label for="password">Mot de passe</label>
+                <label for="password">{{ trans("cruds.user.fields.password") }}</label>
                 <input type="password" id="password" name="password" class="form-control" required>
                 @if($errors->has('password'))
                     <em class="invalid-feedback">
@@ -58,7 +58,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
-                <label for="roles">Rôles<span class="obligatory">*</span></label>
+                <label for="roles">{{ trans("cruds.user.fields.roles") }}<span class="obligatory">*</span></label>
                 <select name="roles[]" id="roles" class="form-control" required>
                     @foreach($roles as $id => $roles)
                         <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>{{ $roles }}</option>
@@ -76,7 +76,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('region_id') ? 'has-error' : '' }}">
-                        <label for="region_id">Régions</label>
+                        <label for="region_id">{{ trans("cruds.cities.fields.region_pluriel") }}</label>
                         <select name="region_id" id="region_select" class="form-control select2">
                             <option value=""></option>
                             @foreach($regions as $id => $region)
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('province_id') ? 'has-error' : '' }}">
-                        <label for="province_id">Provinces</label>
+                        <label for="province_id">{{ trans("cruds.cities.fields.province_pluriel") }}</label>
                         <select name="province_id" id="province_select" class="form-control select2">
                                 <option value=""></option>
                         </select>
@@ -113,7 +113,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('youth_center_id') ? 'has-error' : '' }}">
-                        <label for="youth_center_id">Maison des jeunes</label>
+                        <label for="youth_center_id">{{ trans("cruds.youth_centers.title_singular") }}</label>
                         <select name="youth_center_id" id="youth_center_select" class="form-control select2">
                             <option value=""></option>
                         </select>

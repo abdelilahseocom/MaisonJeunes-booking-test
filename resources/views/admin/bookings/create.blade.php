@@ -43,7 +43,7 @@
                     </em>
                 @endif
                 <p class="helper-block">
-                    {{ trans('cruds.booking.fields.finish_time_helper') }}
+                    {{ trans('cruds.booking.fields.end_time_helper') }}
                 </p>
             </div>
             <div class="form-group {{ $errors->has('comment') ? 'has-error' : '' }}">
@@ -55,7 +55,7 @@
                     </em>
                 @endif
                 <p class="helper-block">
-                    {{ trans('cruds.booking.fields.comment_helper') }}
+                    {{ trans('cruds.booking.fields.comments_helper') }}
                 </p>
             </div>
             <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
