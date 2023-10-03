@@ -261,9 +261,10 @@ return [
         'client'       => 'Gestion des client',
         'service'      => 'Gestion des services',
         'booking'      => 'Gestion des réservation',
-        'permission'  => "Gestion d'Autorisations",
+        'permission'   => "Gestion d'Autorisations",
         'role'         => 'Gestion des rôles',
-        'user'         => 'Gestion des utilisateurs'
+        'user'         => 'Gestion des utilisateurs',
+        'city'         => 'Gestion des villes',
     ],
 
 ];

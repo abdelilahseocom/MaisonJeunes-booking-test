@@ -11,7 +11,7 @@
             @csrf
             @method('PUT')
             <div class="form-group {{ $errors->has('lastname') ? 'has-error' : '' }}">
-                <label for="lastname">Nom<span class="obligatory">*</span></label>
+                <label for="lastname">{{ trans("cruds.user.fields.lastname") }}<span class="obligatory">*</span></label>
                 <input type="text" id="lastname" name="lastname" class="form-control" value="{{ old('lastname', isset($user) ? $user->lastname : '') }}" required>
                 @if($errors->has('lastname'))
                     <em class="invalid-feedback">
@@ -23,7 +23,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('firstname') ? 'has-error' : '' }}">
-                <label for="firstname">Prénom<span class="obligatory">*</span></label>
+                <label for="firstname">{{ trans("cruds.user.fields.firstname") }}<span class="obligatory">*</span></label>
                 <input type="text" id="firstname" name="firstname" class="form-control" value="{{ old('firstname', isset($user) ? $user->firstname : '') }}" required>
                 @if($errors->has('firstname'))
                     <em class="invalid-feedback">
@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('region_id') ? 'has-error' : '' }}">
-                        <label for="region_id">Régions</label>
+                        <label for="region_id">{{ trans("cruds.cities.fields.region_pluriel") }}</label>
                         <select name="region_id" id="region_select" class="form-control select2">
                             <option value=""></option>
                             @foreach($regions as $id => $region)
@@ -96,7 +96,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('province_id') ? 'has-error' : '' }}">
-                        <label for="province_id">Provinces</label>
+                        <label for="province_id">{{ trans("cruds.cities.fields.province_pluriel") }}</label>
                         <select name="province_id" id="province_select" class="form-control select2">
                             <option value=""></option>
                             @foreach($provinces as $id => $province)
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('youth_center_id') ? 'has-error' : '' }}">
-                        <label for="youth_center_id">Maison des jeunes</label>
+                        <label for="youth_center_id">{{ trans("cruds.youth_centers.title_singular") }}</label>
                         <select name="youth_center_id" id="youth_center_select" class="form-control select2">
                             <option value=""></option>
                             @foreach($youth_centers as $id => $youth_center)
