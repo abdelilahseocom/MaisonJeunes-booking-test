@@ -40,6 +40,7 @@ return [
     'systemCalendar'                        => 'Calendrier',
     'settings'                              => 'Paramétrage',
     'cites'                                 => 'Les villes',
+    'youth_center'                         => 'Maisons des jeunes',
     'thankYouForUsingOurApplication'        => "Merci d'utiliser notre site web",
     'timeFrom'                              => 'De',
     'timeTo'                                => 'À',

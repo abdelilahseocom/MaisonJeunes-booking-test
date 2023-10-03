@@ -23,6 +23,7 @@ class CreateYouthCenterServicePivotTable extends Migration
             $table->integer('max_places')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
