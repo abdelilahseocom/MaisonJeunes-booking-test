@@ -1,7 +1,7 @@
 import fr_lang from "./language_fr.json" assert { type: "json" };
 const datatable_lang_fr = fr_lang;
 // Default parametres of datatables
-$(function() {
+$(function () {
     let copyButtonTrans = 'Copier'
     let csvButtonTrans = 'CSV'
     let excelButtonTrans = 'Excel'
@@ -10,62 +10,62 @@ $(function() {
 
     $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
     $.extend(true, $.fn.dataTable.defaults, {
-    language: datatable_lang_fr,
-    columnDefs: [ {
-        orderable: false,
-        searchable: false,
-        targets: -1
-    }],
-    // select: {
-    //     style:    'multi+shift',
-    //     selector: 'td:first-child'
-    // },
-    order: [],
-    scrollX: true,
-    pageLength: 100,
-    dom: 'lBfrtip<"actions">',
-    buttons: [
-        {
-            extend: 'copy',
-            className: 'btn-default',
-            text: copyButtonTrans,
-            exportOptions: {
-                columns: ':visible'
+        language: datatable_lang_fr,
+        columnDefs: [{
+            orderable: false,
+            searchable: false,
+            targets: -1
+        }],
+        // select: {
+        //     style:    'multi+shift',
+        //     selector: 'td:first-child'
+        // },
+        order: [],
+        scrollX: true,
+        pageLength: 100,
+        dom: 'lBfrtip<"actions">',
+        buttons: [
+            {
+                extend: 'copy',
+                className: 'btn-default',
+                text: copyButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csv',
+                className: 'btn-default',
+                text: csvButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'excel',
+                className: 'btn-default',
+                text: excelButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdf',
+                className: 'btn-default',
+                text: pdfButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                className: 'btn-default',
+                text: printButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
             }
-        },
-        {
-            extend: 'csv',
-            className: 'btn-default',
-            text: csvButtonTrans,
-            exportOptions: {
-                columns: ':visible'
-            }
-        },
-        {
-            extend: 'excel',
-            className: 'btn-default',
-            text: excelButtonTrans,
-            exportOptions: {
-                columns: ':visible'
-            }
-        },
-        {
-            extend: 'pdf',
-            className: 'btn-default',
-            text: pdfButtonTrans,
-            exportOptions: {
-                columns: ':visible'
-            }
-        },
-        {
-            extend: 'print',
-            className: 'btn-default',
-            text: printButtonTrans,
-            exportOptions: {
-                columns: ':visible'
-            }
-        }
-    ]
+        ]
     });
 
     $.fn.dataTable.ext.classes.sPageButton = '';
@@ -76,59 +76,70 @@ $(function() {
 // Datatables
 let permissions_datatable = $('.datatable-Permission');
 let cities_datatable = $('.cities-Permission');
-let  datatable_services = $('.datatable-services');
+let datatable_services = $('.datatable-services');
 let roles_datatable = $('.datatable-Role');
 let users_datatable = $('.datatable-User');
 let booking_datatable = $('.datatable-booking');
 let clients_datatable = $('.datatable-clients');
+let youth_centers_datatable = $('.datatable-youth-centers');
 
-if(permissions_datatable.length>0) {
+if (permissions_datatable.length > 0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        permissions_datatable.DataTable({ buttons: dtButtons})
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        permissions_datatable.DataTable({ buttons: dtButtons })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();
         });
     })
 }
-if(cities_datatable.length>0) {
+if (cities_datatable.length > 0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        cities_datatable.DataTable({ buttons: dtButtons})
+        cities_datatable.DataTable({ buttons: dtButtons })
     });
 }
-if(roles_datatable.length>0) {
+if (roles_datatable.length > 0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        permissions_datatable.DataTable({ buttons: dtButtons})
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        permissions_datatable.DataTable({ buttons: dtButtons })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();
         });
     })
 }
-if(datatable_services.length>0) {
+if (datatable_services.length > 0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        datatable_services.DataTable({ buttons: dtButtons})
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        datatable_services.DataTable({ buttons: dtButtons })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();
         });
     })
 }
-if(users_datatable.length>0) {
+if (youth_centers_datatable.length > 0) {
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        users_datatable.DataTable({ buttons: dtButtons})
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        youth_centers_datatable.DataTable({ buttons: dtButtons })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();
         });
     })
 }
-if(booking_datatable.length>0) {
+if (users_datatable.length > 0) {
+    $(function () {
+        let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+        users_datatable.DataTable({ buttons: dtButtons })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $($.fn.dataTable.tables(true)).DataTable()
+                .columns.adjust();
+        });
+    });
+}
+if (booking_datatable.length > 0) {
     $(function () {
         let datatableConfig = {
             buttons: $.extend(true, [], $.fn.dataTable.defaults.buttons),
@@ -146,18 +157,18 @@ if(booking_datatable.length>0) {
                 { data: 'type', name: 'type' },
                 { data: 'actions', name: 'actions' }
             ],
-            order: [[ 1, 'desc' ]],
+            order: [[1, 'desc']],
             pageLength: 100,
         };
 
         booking_datatable.DataTable(datatableConfig);
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();
         });
     })
 }
-if(clients_datatable.length>0) {
+if (clients_datatable.length > 0) {
     $(function () {
         let datatableConfig = {
             buttons: $.extend(true, [], $.fn.dataTable.defaults.buttons),
@@ -173,14 +184,13 @@ if(clients_datatable.length>0) {
                 { data: 'email', name: 'email' },
                 { data: 'actions', name: 'actions' }
             ],
-            order: [[ 1, 'desc' ]],
+            order: [[1, 'desc']],
             pageLength: 100,
         };
         clients_datatable.DataTable(datatableConfig);
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $($.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();
         });
     })
 }
-

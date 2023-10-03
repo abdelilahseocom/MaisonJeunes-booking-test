@@ -40,6 +40,7 @@ return [
     'systemCalendar'                       => 'Calendar',
     'settings'                              => 'Configurations',
     'cites'                                 => 'Cities',
+    'youth_center'                         => 'Youth centres',
     'thankYouForUsingOurApplication'       => 'Thank you for using our website',
     'timeFrom'                             => 'From',
     'timeTo'                               => 'To',

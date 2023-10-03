@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory,SoftDeletes;
 
     public $table = 'services';
 
@@ -26,13 +26,16 @@ class Service extends Model
         'deleted_at',
     ];
 
-    public function employees()
-    {
-        return $this->belongsToMany(Employee::class);
-    }
 
     public function bookings()
     {
         return $this->belongsToMany(Booking::class);
+    }
+    
+   
+    public function youthCenters(){
+        return $this->belongsToMany(YouthCenter::class,"youth_center_service","service_id","youth_center_id")
+                    ->withPivot(["id","duration","max_places","status","created_at","updated_at"])
+                    ->withTimestamps();
     }
 }

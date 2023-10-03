@@ -137,3 +137,6 @@ table.dataTable thead .sorting_desc {
 .form-check-input , .form-check-label {
     cursor: pointer;
 }
+.table.youth_center_services_table td, .table.youth_center_services_table th {
+    border: 1px solid #c8ced3 !important;
+}
