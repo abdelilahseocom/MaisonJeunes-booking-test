@@ -27,10 +27,9 @@ class SystemCalendarController extends Controller
                 'borderColor'  => $color,
                 'comment'  => $booking->comment,
                 'type'  => $booking->type,
-                'url'   => $booking->type == "service" ? route('admin.bookings.edit', $booking->id) : "",
+                'url'   => $booking->type == "service" ? route('admin.bookings.edit', $booking->id) : route('admin.edit_unavailability', $booking->id),
             ];
         }
-
         return view('admin.calendar.calendar', compact('events'));
     }
 }

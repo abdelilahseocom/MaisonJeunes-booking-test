@@ -16,7 +16,7 @@
                                 <select name="region_id" id="region_select" class="form-control select2" required>
                                     <option value=""></option>
                                     @foreach($regions as $id => $region)
-                                        <option value="{{ $id }}" {{ old('region_id') ? 'selected' : '' }}>{{ $region }}</option>
+                                        <option value="{{ $id }}" {{ old('region_id') || $id == $booking->youth_center->city->province->region->id ? 'selected' : '' }}>{{ $region }}</option>
                                     @endforeach
                                 </select>
                                 @if($errors->has('region_id'))
@@ -37,7 +37,7 @@
                             <select name="province_id" id="province_select" class="form-control select2" required>
                                 <option value=""></option>
                                 @forelse($provinces as $id => $province)
-                                <option value="{{ $id }}" {{ old('province_id') ? 'selected' : '' }}>{{ $province }}</option>
+                                <option value="{{ $id }}" {{ old('province_id') || $id == $booking->youth_center->city->province->id ? 'selected' : '' }}>{{ $province }}</option>
                                 @empty
                                     
                                 @endif
@@ -61,7 +61,7 @@
                             <select name="youth_center_id" id="youth_center_select" class="form-control select2" required>
                                 <option value=""></option>
                                     @forelse($youth_centers as $id => $youth_center)
-                                    <option value="{{ $id }}" {{ old('youth_center_id') ? 'selected' : '' }}>{{ $youth_center }}</option>
+                                    <option value="{{ $id }}" {{ old('youth_center_id') || $id == $booking->youth_center->id ? 'selected' : '' }}>{{ $youth_center }}</option>
                                     @empty
                                     @endif
                             </select>
@@ -76,8 +76,6 @@
                         </div>
                     </div>
                 </div>
-            @else
-            <input type="hidden" name="youth_center_id" value="{{ $workplaces['youth_center_id'] }}">
             @endif
             <div class="row">
                 <div class="col-md-6">
@@ -132,7 +130,7 @@
                         <select name="type" id="type" class="form-control" required>
                             <option value="">Veuillez sélectionner une option</option>
                             @foreach (Constants::getBookingTypes() as $type)
-                                <option value="{{ $type['value'] }}">{{ $type['name'] }}</option>
+                                <option value="{{ $type['value'] }}" {{ $type['value'] == $booking->type ? 'selected' : ''  }}>{{ $type['name'] }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('type'))
@@ -144,9 +142,16 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                <a href="#" class="btn btn-danger delete-booking mr-2">{{ trans('global.delete') }}</a>
+                <input class="btn btn-success" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
+        @can('booking_delete')
+        <form action="{{ route('admin.delete_unavailability', $booking->id) }}" method="POST" id="delete-booking-form" style="display: inline-block;">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        </form>
+        @endcan
     </div>
 </div>
 @endsection
@@ -161,5 +166,9 @@
     $(document).on("change","#province_select",function(){
         fillSelectByData("/admin/get-youth-centers-by-province", this, "youth_center_select");
     })
+    // delete booking
+    $('.delete-booking').on('click', function(){
+        $('#delete-booking-form').submit();
+    });
 </script>
 @endsection

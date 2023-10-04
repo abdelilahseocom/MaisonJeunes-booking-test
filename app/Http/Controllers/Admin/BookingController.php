@@ -8,11 +8,15 @@ use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyAppointmentRequest;
 use App\Http\Requests\BookingRequest;
+use App\Province;
+use App\Region;
 use App\Service;
 use App\Services\BookingService;
+use App\Services\GlobalService;
 use App\YouthCenter;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -137,33 +141,60 @@ class BookingController extends Controller
 
     public function createUnavailability(Request $request)
     {
-        $youth_centers = YouthCenter::all()->pluck('name', 'id');
-        return view('admin.bookings.create_unavailability', compact('youth_centers'));
+        abort_if(Gate::denies('booking_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $user = Auth::user();
+        $workplaces = GlobalService::getUserWorkplaces($user);
+        $youth_center_only = $regions = $provinces = $youth_centers = [];
+        if(empty($workplaces['youth_center_id'])) {
+            if(!empty($workplaces['province_id'])) {
+                $youth_centers =  YouthCenter::whereHas('city', function($query) use($workplaces) {
+                    $query->where('province_id', $workplaces['province_id']);
+                })->get()->pluck('name', 'id');  
+            }
+            if(empty($workplaces['region_id'])) {
+                $regions = Region::all()->pluck('name', 'id');
+            }else {
+                $provinces = Province::where('region_id', $workplaces['region_id'])->get()->pluck('name', 'id');
+            }
+        } else {
+            $youth_center_only = $workplaces['youth_center_id'] ? YouthCenter::find($workplaces['youth_center_id'])->pluck('name', 'id') : '';
+        }
+        return view('admin.bookings.create_unavailability', compact('youth_centers', 'provinces', 'regions', 'workplaces', 'youth_center_only'));
     }
 
     public function editUnavailability($id)
     {
+        abort_if(Gate::denies('booking_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $booking = Booking::find($id);
-        $youth_centers = YouthCenter::all()->pluck('name', 'id');
-        return view('admin.bookings.create_unavailability', compact('youth_centers', 'booking'));
+        $user = Auth::user();
+        $workplaces = GlobalService::getUserWorkplaces($user);
+        $regions = Region::all()->pluck('name', 'id');
+        $provinces = Province::where('region_id', $booking->youth_center->city->province->region_id)->get()->pluck('name', 'id');
+        $youth_centers =  YouthCenter::whereHas('city', function($query) use($booking) {
+            $query->where('province_id', $booking->youth_center->city->province->id);
+        })->get()->pluck('name', 'id');
+
+        return view('admin.bookings.edit_unavailability', compact('youth_centers', 'booking', 'workplaces', 'provinces', 'regions'));
     }
 
     public function saveUnavailability(Request $request, BookingService $bookingservice) {
+        abort_if(Gate::denies('booking_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $data = $request->all();
         $booking_id = !empty($request->booking_id) ? $request->booking_id : '';
         $bookingservice->saveUnavailability($booking_id, $data);
-        $bookings = Booking::with(['client'])->get();
-        foreach ($bookings as $booking) {
-            if (!$booking->start_time) {
-                continue;
-            }
-            $events[] = [
-                'title' => $booking->type ,
-                'start' => $booking->start_time,
-                'end' => $booking->end_time,
-                'url'   => route('admin.bookings.edit', $booking->id),
-            ];
-        }
-        return view('admin.calendar.calendar', compact('events'));
+
+        return redirect()->route('admin.systemCalendar');
+    }
+
+    public function destroyUnavailabilityBooking(Booking $booking)
+    {
+        abort_if(Gate::denies('booking_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $booking->delete();
+
+        return redirect()->route('admin.systemCalendar');
     }
 }

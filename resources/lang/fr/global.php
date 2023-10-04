@@ -254,6 +254,7 @@ return [
     'content'                               => 'Contenu',
     'no_alerts'                             => "Pas d'alertes",
     'calendar'                              => 'Calendrier',
+    'reason'                                => 'Motif',
     'messenger'                             => 'Messagerie',
     'success_msg'                           => 'l\'opération à été effectuée avec succès',
     'error_msg'                             => 'l\'opération n\'à pas été effectuée avec succès',
