@@ -63,4 +63,8 @@ class GlobalService{
         };
         return $color;
     }
+
+    public function calendarFilter($request) {
+        
+    }
 }
