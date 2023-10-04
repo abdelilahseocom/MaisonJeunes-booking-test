@@ -21,6 +21,8 @@ class CreateBookingsTable extends Migration
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->unsignedInteger('youth_center_service_id')->nullable();
             $table->foreign('youth_center_service_id')->references('id')->on('youth_center_service');
+            $table->unsignedInteger('youth_center_id')->nullable();            
+            $table->foreign('youth_center_id')->references('id')->on('youth_centers')->onDelete('cascade');
             $table->timestamps();
         });
     }

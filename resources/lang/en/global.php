@@ -104,6 +104,7 @@ return [
     'chart_type'                           => 'Chart type',
     'type'                                 => 'Type',
     'unavailability'                       => 'Unavailability',
+    'reason'                                => 'Reason',
     'code'                                 => 'Code',
     'companies'                            => 'Companies',
     'company'                              => 'Company',

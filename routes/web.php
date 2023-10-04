@@ -29,10 +29,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Bookings
     Route::delete('bookings/destroy', 'BookingController@massDestroy')->name('bookings.massDestroy');
     Route::resource('bookings', 'BookingController');
-    Route::post('unavailability', 'BookingController@saveUnavailability')->name('save_unavailability');
-    Route::get('unavailability/create', 'BookingController@createUnavailability')->name('create_unavailability');
-    Route::get('unavailability/edit', 'BookingController@editUnavailability')->name('edit_unavailability');
-
+    Route::post('bookings/unavailability', 'BookingController@saveUnavailability')->name('save_unavailability');
+    Route::get('bookings/unavailability/create', 'BookingController@createUnavailability')->name('create_unavailability');
+    Route::get('bookings/unavailability/edit/{id}', 'BookingController@editUnavailability')->name('edit_unavailability');
+    Route::delete('bookings/unavailability/delete/{booking}', 'BookingController@destroyUnavailabilityBooking')->name('delete_unavailability');
+    
     // cities
     Route::resource('cities', "CityController");
     Route::post("get-provinces-by-region","HomeController@getProvincesByRegion")->name("get_provinces_by_region");

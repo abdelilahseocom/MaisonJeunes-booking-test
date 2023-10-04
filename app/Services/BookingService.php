@@ -9,10 +9,11 @@ class BookingService {
        $booking = Booking::updateOrCreate(
         [ 'id' => $booking_id],
         [
-            'start_time' => $data['start_time'],
-            'end_time'   => $data['start_time'],
-            'comment'    => $data['comment'],
-            'type'       => $data['type']
+            'start_time'      => $data['start_time'],
+            'end_time'        => $data['end_time'],
+            'comment'         => $data['comment'],
+            'type'            => $data['type'],
+            'youth_center_id' => $data['youth_center_id']
         ]);
        return $booking;
     }

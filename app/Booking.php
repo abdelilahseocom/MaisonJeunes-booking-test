@@ -23,6 +23,7 @@ class Booking extends Model
         'type',
         'client_id',
         'youth_center_service_id',
+        'youth_center_id',
         'created_at',
         'updated_at',
     ];
@@ -48,5 +49,9 @@ class Booking extends Model
             $title =  "Indisponible";
         }
         return $title;
+    }
+
+    public function youth_center() {
+        return $this->belongsTo(YouthCenter::class);
     }
 }

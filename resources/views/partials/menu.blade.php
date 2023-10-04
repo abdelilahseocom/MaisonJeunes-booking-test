@@ -86,12 +86,14 @@
                                 {{ trans('global.list') }}
                             </a>
                         </li>
+                        @can('booking_create')
                         <li class="nav-item">
                             <a href="{{ route("admin.create_unavailability") }}" class="nav-link {{ request()->is('admin/unavailability') || request()->is('admin/unavailability/*') ? 'active' : '' }}">
                                 <i class="fa-fw fas fa-briefcase nav-icon"></i>
                                 {{ trans('global.unavailability') }}
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
             @endcan
