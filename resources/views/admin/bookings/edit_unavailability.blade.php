@@ -7,6 +7,7 @@
     <div class="card-body">
         <form action="{{ route('admin.save_unavailability') }}" method="POST">
             @csrf
+            <input type="hidden" name="booking_id" value="{{ $booking->id }}">
             @if(empty($workplaces['youth_center_id']))
                 <div class="row">
                     @if(empty($workplaces['region_id']))
