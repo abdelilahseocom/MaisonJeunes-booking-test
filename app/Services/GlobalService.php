@@ -1,9 +1,11 @@
 <?php
 namespace App\Services;
 
+use App\Booking;
 use App\Province;
 use App\Region;
 use App\YouthCenter;
+use Illuminate\Support\Facades\Auth;
 
 class GlobalService{
 
@@ -64,7 +66,16 @@ class GlobalService{
         return $color;
     }
 
-    public function calendarFilter($request) {
-        
+    public static function calendarFilter($request, $youth_center_id) {
+        $user = Auth::user();
+        $bookings = Booking::with(['client'])->when($youth_center_id, function ($q) use($youth_center_id) {
+            return $q->where('youth_center_id', $youth_center_id);
+        })->get();
+        session(['calendar_filter_user_'.$user->id => [
+            'youth_center_id' => $youth_center_id,
+            'province_id'     => $request->province_id,
+            'region_id'       => $request->region_id
+        ]]);
+        return $bookings;
     }
 }
