@@ -139,3 +139,6 @@ table.dataTable thead .sorting_desc {
 .table.youth_center_services_table td, .table.youth_center_services_table th {
     border: 1px solid #c8ced3 !important;
 }
+.youth_center_name {
+    text-transform: capitalize;
+}

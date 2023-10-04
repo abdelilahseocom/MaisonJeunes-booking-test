@@ -147,19 +147,18 @@ class BookingController extends Controller
         $workplaces = GlobalService::getUserWorkplaces($user);
         $youth_center_only = $regions = $provinces = $youth_centers = [];
         if(empty($workplaces['youth_center_id'])) {
-            if(empty($workplaces['province_id'])) {
-                if(empty($workplaces['region_id'])) {
-                    $regions = Region::all()->pluck('name', 'id');
-                } else {
-                    $provinces = Province::where('region_id', $workplaces['region_id'])->get()->pluck('name', 'id');
-                }
-            } else {
+            if(!empty($workplaces['province_id'])) {
                 $youth_centers =  YouthCenter::whereHas('city', function($query) use($workplaces) {
                     $query->where('province_id', $workplaces['province_id']);
                 })->get()->pluck('name', 'id');  
             }
+            if(empty($workplaces['region_id'])) {
+                $regions = Region::all()->pluck('name', 'id');
+            }else {
+                $provinces = Province::where('region_id', $workplaces['region_id'])->get()->pluck('name', 'id');
+            }
         } else {
-            $youth_center_only = $workplaces['youth_center_id'] ? YouthCenter::where('id' ,$workplaces['youth_center_id'])->first() : '';
+            $youth_center_only = $workplaces['youth_center_id'] ? YouthCenter::find($workplaces['youth_center_id'])->pluck('name', 'id') : '';
         }
         return view('admin.bookings.create_unavailability', compact('youth_centers', 'provinces', 'regions', 'workplaces', 'youth_center_only'));
     }

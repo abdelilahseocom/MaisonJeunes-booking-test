@@ -1,9 +1,11 @@
 <?php
 namespace App\Services;
 
+use App\Booking;
 use App\Province;
 use App\Region;
 use App\YouthCenter;
+use Illuminate\Support\Facades\Auth;
 
 class GlobalService{
 
@@ -64,7 +66,41 @@ class GlobalService{
         return $color;
     }
 
-    public function calendarFilter($request) {
-        
+    public static function getYouthCentersProvincesRegionsByUserWorkplace($workplaces) {
+        $data = [
+           'regions' => [],
+           'provinces' => [],
+           'youth_centers' => [],
+           'current_youth_center' => [],
+        ];
+        if(empty($workplaces['youth_center_id'])) {
+            if(empty($workplaces['province_id'])) {
+                if(empty($workplaces['region_id'])) {
+                    $data['regions'] = Region::all()->pluck('name', 'id');
+                } else {
+                    $data['provinces'] = Province::where('region_id', $workplaces['region_id'])->get()->pluck('name', 'id');
+                }
+            } else {
+                    $data['youth_centers']  =  YouthCenter::whereHas('city', function($query) use($workplaces) {
+                    $query->where('province_id', $workplaces['province_id']);
+                })->get()->pluck('name', 'id');  
+            }
+        } else {
+            $data['current_youth_center'] = $workplaces['youth_center_id'] ? YouthCenter::where('id' ,$workplaces['youth_center_id'])->first() : '';
+        }
+        return $data;
+    }
+
+    public static function calendarFilter($request, $youth_center_id) {
+        $user = Auth::user();
+        $bookings = Booking::with(['client'])->when($youth_center_id, function ($q) use($youth_center_id) {
+            return $q->where('youth_center_id', $youth_center_id);
+        })->get();
+        session(['calendar_filter_user_'.$user->id => [
+            'youth_center_id' => $youth_center_id,
+            'province_id'     => $request->province_id,
+            'region_id'       => $request->region_id
+        ]]);
+        return $bookings;
     }
 }
