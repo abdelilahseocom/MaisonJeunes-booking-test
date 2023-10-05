@@ -1,13 +1,23 @@
 @extends('layouts.admin')
 @section('content')
     <div class="card">
-        <div class="card-header">
-            {{ trans('global.create') }} {{ trans('cruds.booking.title_singular') }}
-        </div>
+        <form action="{{ route('admin.bookings.update', ['booking' => $booking->id]) }}" method="POST" enctype="multipart/form-data">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-11">
+                        {{ trans('global.create') }} {{ trans('cruds.booking.title_singular') }}
+                    </div>
+                    <div class="col-md-1">
+                        <select name="status" class="form-control booking-status">
+                            @foreach (Constants::getBookingStatus() as $status)
+                            <option {{ $booking->status == $status['value'] ? 'selected' : '' }} value="{{ $status['value'] }}">{{ $status['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-        <div class="card-body">
-            <form action="{{ route('admin.bookings.update', ['booking' => $booking->id]) }}" method="POST"
-                enctype="multipart/form-data">
+            <div class="card-body">
                 @csrf
                 @method('PUT')
                 <div class="form-group {{ $errors->has('client_id') ? 'has-error' : '' }}">
@@ -139,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-               
+                
                 <div class="form-group {{ $errors->has('start_time') ? 'has-error' : '' }}">
                     <label for="start_time">{{ trans('cruds.booking.fields.start_time') }}*</label>
                     <input type="text" id="start_time" name="start_time" class="form-control datetime"
@@ -181,8 +191,8 @@
                 <div>
                     <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 @endsection
 @section('scripts')

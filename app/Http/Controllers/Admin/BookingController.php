@@ -53,8 +53,8 @@ class BookingController extends Controller
             $table->addColumn('client_name', function ($row) {
                 return $row->client ? $row->client->name : '';
             });
-            $table->editColumn('price', function ($row) {
-                return $row->price ? $row->price : "";
+            $table->editColumn('status', function ($row) {
+                return trans('global.'.$row->status);
             });
             $table->editColumn('comments', function ($row) {
                 return $row->comments ? $row->comments : "";
@@ -166,6 +166,7 @@ class BookingController extends Controller
            "start_time"=>$request->start_time,
            "end_time"=>$request->end_time,
            "comment"=>$request->comment,
+           "status"=>$request->status,
            "type"=>Constants::BOOKING_SERVICE,
            "youth_center_service_id"=>$youthCenterService->id,
         ];

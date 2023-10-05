@@ -21,6 +21,7 @@ class Booking extends Model
         'end_time',
         'comment',
         'type',
+        'status',
         'client_id',
         'youth_center_service_id',
         'youth_center_id',

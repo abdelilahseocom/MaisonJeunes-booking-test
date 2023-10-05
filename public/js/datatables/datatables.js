@@ -154,6 +154,7 @@ if (booking_datatable.length > 0) {
                 { data: 'start_time', name: 'start_time' },
                 { data: 'end_time', name: 'end_time' },
                 { data: 'comment', name: 'comment' },
+                { data: 'status', name: 'status' },
                 { data: 'actions', name: 'actions' }
             ],
             order: [[1, 'desc']],
