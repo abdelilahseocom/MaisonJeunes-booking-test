@@ -155,11 +155,18 @@
 <script>
     // Populate Provinces      
     $(document).on("change","#region_select",function(){
-        fillSelectByData("/admin/get-provinces-by-region", this, "province_select");
+        let emptySelects = [
+        "province_select",
+        "youth_center_select",
+    ];
+        fillSelectByData("/admin/get-provinces-by-region", this, "province_select",null,emptySelects);
     })
     // Populate youth centers      
     $(document).on("change","#province_select",function(){
-        fillSelectByData("/admin/get-youth-centers-by-province", this, "youth_center_select");
+        let emptySelects = [
+        "youth_center_select",
+    ];
+        fillSelectByData("/admin/get-youth-centers-by-province", this, "youth_center_select",null,emptySelects);
     })
 </script>
 @endsection

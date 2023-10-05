@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Booking;
+use App\Constants\Constants;
 use App\Province;
 use App\Region;
 use App\YouthCenter;
@@ -24,6 +25,10 @@ class GlobalService{
             $query->where('province_id', $province_id);
          })->get();
         return $youth_centers;
+    }
+    public static function getServicesByYouthCenter($youth_center_id){
+        $youth_center = YouthCenter::with('services')->where("id",$youth_center_id)->first();
+        return $youth_center->services()->wherePivot("status",Constants::STATUS_ACTIVE)->get();
     }
 
     public static function getUserWorkplaces($user) {

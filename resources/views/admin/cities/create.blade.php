@@ -61,7 +61,11 @@
     <script>
         // Populate Provinces      
         $(document).on("change","#region_id",function(){
-            fillSelectByData("/admin/get-provinces-by-region", this, "province_id");
+            let emptySelects = [
+            "province_select",
+            "youth_center_select",
+        ];
+            fillSelectByData("/admin/get-provinces-by-region", this, "province_id",null,emptySelects);
         })
     </script>
 @endsection
