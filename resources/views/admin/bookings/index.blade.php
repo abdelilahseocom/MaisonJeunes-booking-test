@@ -34,6 +34,9 @@
                         {{ trans('cruds.booking.fields.comment') }}
                     </th>
                     <th>
+                        {{ trans('global.status') }}
+                    </th>
+                    <th>
                         {{ trans('global.actions') }}
                     </th>
                 </tr>

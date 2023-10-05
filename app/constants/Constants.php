@@ -9,11 +9,14 @@ class Constants {
     const BOOKING_TRAVAUX = "travaux";
     const BOOKING_UNAVAILABLE = "unavailable";
     const BOOKING_SERVICE = "service";
+    const BOOKING_STATUS_CANCELED = "canceled";
+    const BOOKING_STATUS_COMPLETED = "completed";
+    const BOOKING_STATUS_CONFIRMED = "confirmed";
 
     public static function getAllStatus(){
         return collect([
-            ["name"=>"Active","value"=>Constants::STATUS_ACTIVE],
-            ["name"=>"Desactive","value"=>Constants::STATUS_NOT_ACTIVE],
+            ["name"=>"Actif","value"=>Constants::STATUS_ACTIVE],
+            ["name"=>"Inactif","value"=>Constants::STATUS_NOT_ACTIVE],
         ]);
     }
 
@@ -28,6 +31,14 @@ class Constants {
         return collect([
             ["name"=>"Indisponible","value"=>Constants::BOOKING_UNAVAILABLE],
             ["name"=>"Travaux","value"=>Constants::BOOKING_TRAVAUX],
+        ]);
+    }
+
+    public static function getBookingStatus(){
+        return collect([
+            ["name"=>"Annulé","value"=>Constants::BOOKING_STATUS_CANCELED],
+            ["name"=>"Complété","value"=>Constants::BOOKING_STATUS_COMPLETED],
+            ["name"=>"Confirmé","value"=>Constants::BOOKING_STATUS_CONFIRMED],
         ]);
     }
 }

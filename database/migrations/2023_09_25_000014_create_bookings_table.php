@@ -17,6 +17,7 @@ class CreateBookingsTable extends Migration
             $table->datetime('end_time');
             $table->text('comment')->nullable();
             $table->string('type')->nullable();
+            $table->string('status')->default('confirmed');
             $table->unsignedInteger('client_id')->nullable();            
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->unsignedInteger('youth_center_service_id')->nullable();

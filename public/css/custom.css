@@ -142,3 +142,6 @@ table.dataTable thead .sorting_desc {
 .youth_center_name {
     text-transform: capitalize;
 }
+.booking-status {
+    border-color: #c8ced3;
+}
