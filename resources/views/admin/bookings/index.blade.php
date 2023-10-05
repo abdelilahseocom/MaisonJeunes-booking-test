@@ -34,10 +34,7 @@
                         {{ trans('cruds.booking.fields.comment') }}
                     </th>
                     <th>
-                        {{ trans('global.type') }}
-                    </th>
-                    <th>
-                        &nbsp;
+                        {{ trans('global.actions') }}
                     </th>
                 </tr>
             </thead>

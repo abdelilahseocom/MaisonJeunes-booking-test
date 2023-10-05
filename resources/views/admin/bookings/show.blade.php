@@ -36,10 +36,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.booking.fields.finish_time') }}
+                            {{ trans('cruds.booking.fields.end_time') }}
                         </th>
                         <td>
-                            {{ $booking->finish_time }}
+                            {{ $booking->end_time }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.youth_centers.fields.services.name') }}
+                        </th>
+                        <td>
+                            {{ $booking->youthCenterService->service->name }}
                         </td>
                     </tr>
                     <tr>

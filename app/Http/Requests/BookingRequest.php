@@ -23,6 +23,10 @@ class BookingRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'service_id'  => [
+                'required',
+                'integer',
+            ],
             'services.*'  => [
                 'integer',
             ],

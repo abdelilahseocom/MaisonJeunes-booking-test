@@ -53,20 +53,27 @@ async function ajaxCall(url, data){
     });
 }
 
-async function fillSelectByData(url, selectElement, filledSelectId, recordId = null){
+async function fillSelectByData(url, selectElement, filledSelectId, recordId = null,emptySelects=[]){
     let data = {
         id: $(selectElement).val(),
     };
     let results = await ajaxCall(url, data);
     let options = '<option value=""></option>';
     let seletced = "";
+    if (emptySelects.length>0) {
+        emptySelects.forEach(function(select){
+                $(`#${select}`).empty();
+            
+        })
+        
+    }
+
     if (results.error==0 && results.data!=null) {
         results.data.forEach((element)=>{
             options += `<option value="${element.id}" ${seletced} >${element.name} </option>`;
         })
         $('#'+filledSelectId).html(options);
         if(recordId !== null) {
-            console.log(filledSelectId);
             $('#'+filledSelectId).select2({
                 placeholder: "Veuillez sélectionner une option",
                 allowClear: true
