@@ -54,4 +54,16 @@ class HomeController
         }
         return response()->json($reseponse);
     }
+    public function getServicesByYouthCenter(Request $request){
+        try {
+            $reseponse=[];
+            $youthcenter_id = !empty($request->data['id']) ? $request->data['id'] : '';
+            $services = GlobalService::getServicesByYouthCenter($youthcenter_id);
+            $reseponse=["error"=>0,"message"=>"","data"=>$services];
+           
+        } catch (Exception $th) {
+            $reseponse=["error"=>1,"message"=>$th->getMessage(),"data"=>null];
+        }
+        return response()->json($reseponse);
+    }
 }

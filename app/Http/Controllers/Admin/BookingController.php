@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Booking;
 use App\Client;
+use App\Constants\Constants;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyAppointmentRequest;
@@ -17,6 +18,7 @@ use App\YouthCenter;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -25,7 +27,7 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Booking::with(['client'])->select(sprintf('%s.*', (new Booking)->table));
+            $query = Booking::with(['client'])->where("bookings.type",Constants::BOOKING_SERVICE)->select(sprintf('%s.*', (new Booking)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('actions', '&nbsp;');
@@ -78,40 +80,104 @@ class BookingController extends Controller
     public function create()
     {
         abort_if(Gate::denies('booking_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        
+        $user = Auth::user();
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        $services = Service::all()->pluck('name', 'id');
+        $workPlaces = GlobalService::getUserWorkplaces($user);
 
-        return view('admin.bookings.create', compact('clients', 'services'));
+
+        $data["regions"] =  Region::get();
+        $data["provinces"] = !empty($workPlaces["region_id"]) ? Province::where('region_id', $workPlaces['region_id'])->get(): [];
+        $data["youthCenters"] = !empty($workPlaces["province_id"]) ? YouthCenter::whereHas('city', function($query) use($workPlaces) {
+            $query->where('province_id', $workPlaces['province_id']);
+        })->get() : [];
+        $data["youthCentersServices"] = !empty($workPlaces["youth_center_id"]) ? YouthCenter::where("id",$workPlaces["youth_center_id"])->first()->services()->wherePivot("status",Constants::STATUS_ACTIVE)->get(): [];
+
+        return view('admin.bookings.create',[
+            'clients'=>$clients,
+             'workPlaces'=>$workPlaces,
+             'data'=>$data,
+        ]);
     }
 
     public function store(BookingRequest $request)
     {
-        $booking = Booking::create($request->all());
-
+        $YouthCenter= YouthCenter::findOrFail($request->youth_center_id);
+        $youthCenterService = $YouthCenter->services->where("id",$request->service_id)->first()->pivot;
+        $bookingData=[
+            "client_id"=>$request->client_id,
+            "start_time"=>$request->start_time,
+            "end_time"=>$request->end_time,
+            "comment"=>$request->comment,
+            "type"=>Constants::BOOKING_SERVICE,
+            "youth_center_service_id"=>$youthCenterService->id,
+        ];
+       
+        if (Booking::create($bookingData)) {
+            Session::flash("success", trans('global.success_msg'));   
+        }
+        else{
+            Session::flash("error", trans('global.error_msg'));
+        }
         return redirect()->route('admin.bookings.index');
     }
 
-    public function edit(Booking $booking)
+    public function edit($booking_id)
     {
         abort_if(Gate::denies('booking_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $booking = Booking::with("youthCenterService")->findOrFail($booking_id);
+        $user = Auth::user();
 
+        $data["region_selected"] = isset($booking) ? $booking->youthCenterService->youthCenter->city->province->region_id : 0;
+        $data["province_selected"] = isset($booking) ? $booking->youthCenterService->youthCenter->city->province_id : 0;
+        $data["youth_center_selected"] = isset($booking) ? $booking->youthCenterService->youth_center_id : 0;
+        $data["service_selected"] = isset($booking) ? $booking->youthCenterService->service_id : 0;
 
-        // $services = Service::all()->pluck('name', 'id');
+        $workPlaces = GlobalService::getUserWorkplaces($user);
 
-        $booking->load('client');
+        $regions = Region::all()->pluck('name', 'id');
+        $provinces = Province::where('region_id', $data["region_selected"])->get()->pluck('name', 'id');
+        $youth_centers =  YouthCenter::whereHas('city', function($query) use($data) {
+            $query->where('province_id', $data["province_selected"]);
+        })->get();
+        $services = YouthCenter::where("id",$data["youth_center_selected"])->first()->services()->wherePivot("status",Constants::STATUS_ACTIVE)->get();
 
-        return view('admin.bookings.edit', compact('clients', 'booking'));
+        return view('admin.bookings.edit',[
+        'clients'=>$clients,
+        'workPlaces'=>$workPlaces,
+        'regions'=>$regions,
+        'provinces'=>$provinces,
+        'youth_centers'=>$youth_centers,
+        'services'=>$services,
+        'data'=>$data,
+        'booking'=>$booking,
+        ]);
     }
 
-    public function update(BookingRequest $request, Booking $booking)
+    public function update(BookingRequest $request, $booking_id)
     {
-        $booking->update($request->all());
-        // $booking->services()->sync($request->input('services', []));
+       $booking = Booking::findOrFail($booking_id);
+       $YouthCenter= YouthCenter::findOrFail($request->youth_center_id);
+       $youthCenterService = $YouthCenter->services->where("id",$request->service_id)->first()->pivot;
+       $bookingData=[
+           "client_id"=>$request->client_id,
+           "start_time"=>$request->start_time,
+           "end_time"=>$request->end_time,
+           "comment"=>$request->comment,
+           "type"=>Constants::BOOKING_SERVICE,
+           "youth_center_service_id"=>$youthCenterService->id,
+        ];
+      
+       if ($booking->update($bookingData)) {
+           Session::flash("success", trans('global.success_msg'));   
+       }
+       else{
+           Session::flash("error", trans('global.error_msg'));
+       }
+       return redirect()->route('admin.bookings.index');
 
-        return redirect()->route('admin.bookings.index');
     }
 
     public function show(Booking $booking)
@@ -193,7 +259,7 @@ class BookingController extends Controller
     {
         abort_if(Gate::denies('booking_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $booking->delete();
+        $booking->delete();
 
         return redirect()->route('admin.systemCalendar');
     }

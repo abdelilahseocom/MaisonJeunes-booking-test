@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Booking;
+use App\Constants\Constants;
 use App\Province;
 use App\Region;
 use App\YouthCenter;
@@ -24,6 +25,10 @@ class GlobalService{
             $query->where('province_id', $province_id);
          })->get();
         return $youth_centers;
+    }
+    public static function getServicesByYouthCenter($youth_center_id){
+        $youth_center = YouthCenter::with('services')->where("id",$youth_center_id)->first();
+        return $youth_center->services()->wherePivot("status",Constants::STATUS_ACTIVE)->get();
     }
 
     public static function getUserWorkplaces($user) {
@@ -64,31 +69,6 @@ class GlobalService{
             break;
         };
         return $color;
-    }
-
-    public static function getYouthCentersProvincesRegionsByUserWorkplace($workplaces) {
-        $data = [
-           'regions' => [],
-           'provinces' => [],
-           'youth_centers' => [],
-           'current_youth_center' => [],
-        ];
-        if(empty($workplaces['youth_center_id'])) {
-            if(empty($workplaces['province_id'])) {
-                if(empty($workplaces['region_id'])) {
-                    $data['regions'] = Region::all()->pluck('name', 'id');
-                } else {
-                    $data['provinces'] = Province::where('region_id', $workplaces['region_id'])->get()->pluck('name', 'id');
-                }
-            } else {
-                    $data['youth_centers']  =  YouthCenter::whereHas('city', function($query) use($workplaces) {
-                    $query->where('province_id', $workplaces['province_id']);
-                })->get()->pluck('name', 'id');  
-            }
-        } else {
-            $data['current_youth_center'] = $workplaces['youth_center_id'] ? YouthCenter::where('id' ,$workplaces['youth_center_id'])->first() : '';
-        }
-        return $data;
     }
 
     public static function calendarFilter($request, $youth_center_id) {
