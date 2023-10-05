@@ -46,7 +46,7 @@ class Booking extends Model
     public function getTitleAttribute() {
         $title = '';
         if($this->type == "service") {
-            $title =  $this->client->name.' | ';
+            $title =  $this->client->name.' | '.$this->youthCenterService->service->name;
         } else if($this->type == "travaux") {
             $title = "Travaux"; 
         } else {

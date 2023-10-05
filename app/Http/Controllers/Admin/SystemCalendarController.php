@@ -17,18 +17,34 @@ class SystemCalendarController extends Controller
     public function index(Request $request)
     {
         $events = [];
+        $data = [];
         $user = Auth::user();
         $workplaces = GlobalService::getUserWorkplaces($user);
         $filterData = session('calendar_filter_user_'.Auth::user()->id);
-        if(!empty($filterData)) {
-            $data['regions'] = Region::all()->pluck('name', 'id');
-            $data['provinces'] = Province::where('region_id', $filterData['region_id'])->get()->pluck('name', 'id');
-            $data['youth_centers'] =  YouthCenter::whereHas('city', function($query) use($filterData) {
-                $query->where('province_id', $filterData['province_id']);
-            })->get()->pluck('name', 'id');
-        }
-        $youth_center_id = !empty($request->youth_center_id) ? $request->youth_center_id  : (!empty($workplaces['youth_center_id']) ? $workplaces['youth_center_id'] : '');
-        $bookings = GlobalService::calendarFilter($request, $youth_center_id);
+        $region_id = $province_id = $youth_center_id = '';
+
+        if(!empty($request->youth_center_id))
+            $youth_center_id = $request->youth_center_id;
+        if(!empty($workplaces['youth_center_id']))
+            $youth_center_id = $workplaces['youth_center_id'];
+
+        if(!empty($request->region_id))
+            $region_id = $request->region_id;
+        if(!empty($workplaces['region_id']))
+            $region_id = $workplaces['region_id'];
+
+        if(!empty($request->province_id))
+            $province_id = $request->province_id;
+        if(!empty($workplaces['province_id']))
+            $province_id = $workplaces['province_id'];
+        
+        $bookings = GlobalService::calendarFilter($region_id, $province_id, $youth_center_id);
+        $data['regions'] = Region::all()->pluck('name', 'id');
+        $data['provinces'] = $region_id ? Province::where('region_id', $region_id)->get()->pluck('name', 'id') : [];
+        $data['youth_centers'] = $province_id ? YouthCenter::whereHas('city', function($query) use($province_id) {
+            $query->where('province_id', $province_id);
+        })->get()->pluck('name', 'id') : [];
+        $data['current_youth_center'] = $youth_center_id ? YouthCenter::where('id', $youth_center_id)->first() : '';
         foreach ($bookings as $booking) {
             $color = GlobalService::getEventColor($booking->type);
             if (!$booking->start_time) {
@@ -45,7 +61,6 @@ class SystemCalendarController extends Controller
                 'url'   => $booking->type == "service" ? route('admin.bookings.edit', $booking->id) : route('admin.edit_unavailability', $booking->id),
             ];
         }
-        $current_youth_center = $regions = $provinces = $youth_centers = [];
-        return view('admin.calendar.calendar', compact('events', 'data'));
+        return view('admin.calendar.calendar', compact('events', 'data', 'workplaces'));
     }
 }

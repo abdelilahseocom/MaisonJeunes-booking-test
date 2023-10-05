@@ -13,13 +13,13 @@
     </div>
     <div class="card-body">
         <div class="filter mb-3">
-            @if (empty($data['current_youth_center']))
+            @if (empty($workplaces['youth_center_id']))
             <form action="{{ route('admin.calendar_searching') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-md-10">
                         <div class="row">
-                            @if(!empty($data['regions']))
+                            @if(empty($workplaces['region_id']))
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('region_id') ? 'has-error' : '' }}">
                                     <label for="region_id">{{ trans("cruds.cities.fields.region_pluriel") }}</label>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             @endif
-                            @if(!empty($data['provinces']) || !empty($data['regions']))
+                            @if(empty($workplaces['province_id']) || empty($workplaces['region_id']))
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('province_id') ? 'has-error' : '' }}">
                                     <label for="province_id">{{ trans("cruds.cities.fields.province_pluriel") }}</label>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             @endif
-                            @if(!empty($data['youth_centers']) || !empty($data['provinces']) || !empty($data['regions']))
+                            @if(empty($workplaces['youth_center_id']) || empty($workplaces['province_id']) || empty($workplaces['region_id']))
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('youth_center_id') ? 'has-error' : '' }}">
                                     <label for="youth_center_id">{{ trans("cruds.youth_centers.title_singular") }}</label>
@@ -115,11 +115,11 @@
         // page is now ready, initialize the calendar...
         events ={!! json_encode($events) !!};
         $('#calendar').fullCalendar({
-        // put your options and callbacks here
-        header: { center: 'year,listYear,month,agendaWeek' }, // buttons for switching between views
-        events: events,
-        defaultView: 'agendaWeek',
-        lang: 'fr'
+            // put your options and callbacks here
+            header: { center: 'year,listYear,month,agendaWeek' },
+            events: events,
+            defaultView: 'agendaWeek',
+            lang: 'fr'
         })
 
 
