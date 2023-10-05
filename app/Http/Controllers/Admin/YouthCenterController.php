@@ -7,8 +7,10 @@ use App\Constants\Constants;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\YouthCenterRequest;
 use App\Service;
+use App\Services\GlobalService;
 use App\YouthCenter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
@@ -24,8 +26,23 @@ class YouthCenterController extends Controller
     public function index()
     {
         abort_if(Gate::denies('youth-center_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $user=Auth::user();
+        $workPlaces = GlobalService::getUserWorkplaces($user);
+        if (!empty($workPlaces["region_id"]) && empty($workPlaces["province_id"]) && empty($workPlaces["youth_center_id"])) {
+            $youthCenters = YouthCenter::orderBy("updated_at", "asc")->get();
+        }
+        else if(!empty($workPlaces["prvince_id"]) && empty($workPlaces["youth_center_id"])){
+            $youthCenters = YouthCenter::whereHas("city",function($query)use($workPlaces){
+                $query->where("province_id",$workPlaces["prvince_id"]);
+            })->orderBy("updated_at", "asc")->get();
+        }
+        else if(!empty($workPlaces["youth_center_id"])){
+            $youthCenters = YouthCenter::where("id",$workPlaces["youth_center_id"])->orderBy("updated_at", "asc")->get();
+        }
+        else {
+            $youthCenters = YouthCenter::orderBy("updated_at", "asc")->get();
+        }
 
-        $youthCenters = YouthCenter::orderBy("updated_at", "asc")->get();
         return view("admin.youthCenters.index", [
             "youthCenters" => $youthCenters,
         ]);
