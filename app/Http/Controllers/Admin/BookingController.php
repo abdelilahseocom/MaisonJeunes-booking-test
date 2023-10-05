@@ -224,7 +224,7 @@ class BookingController extends Controller
                 $provinces = Province::where('region_id', $workplaces['region_id'])->get()->pluck('name', 'id');
             }
         } else {
-            $youth_center_only = $workplaces['youth_center_id'] ? YouthCenter::find($workplaces['youth_center_id'])->pluck('name', 'id') : '';
+            $youth_center_only = $workplaces['youth_center_id'] ? YouthCenter::where('id', $workplaces['youth_center_id'])->first() : '';
         }
         return view('admin.bookings.create_unavailability', compact('youth_centers', 'provinces', 'regions', 'workplaces', 'youth_center_only'));
     }
