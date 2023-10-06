@@ -260,7 +260,7 @@ class BookingController extends Controller
     {
         abort_if(Gate::denies('booking_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $booking->delete();
+        $booking->delete();
 
         return redirect()->route('admin.systemCalendar');
     }
