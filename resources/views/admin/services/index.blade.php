@@ -15,11 +15,21 @@
         </div>
 
         <div class="card-body">
-            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Permission datatable-Service">
+            <table
+                class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Permission datatable-Service">
                 <thead>
                     <tr>
                         <th>
                             {{ trans('cruds.service.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.service.fields.duration') }} (minutes)
+                        </th>
+                        <th>
+                            {{ trans('cruds.service.fields.max_places') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.service.fields.status') }}
                         </th>
                         <th>
                             {{ trans('global.actions') }}
@@ -34,6 +44,26 @@
                                 {{ $service->name }}
                             </td>
                             <td>
+                                {{ $service->duration }} (minutes)
+                            </td>
+                            <td>
+                                {{ $service->max_places }} Place(s)
+                            </td>
+                            <td>
+                                @switch($service->status)
+                                    @case(Constants::STATUS_ACTIVE)
+                                        <span class="badge badge-success">
+                                            {{ trans('global.status_active') }}
+                                        </span>
+                                    @break
+                                    @case(Constants::STATUS_NOT_ACTIVE)
+                                        <span class="badge badge-danger">
+                                            {{ trans('global.status_desactive') }}
+                                        </span>
+                                    @break
+                                @endswitch
+                            </td>
+                            <td>
                                 @can('service_edit')
                                     <a href="{{ route('admin.services.edit', ['service' => $service->id]) }}"
                                         class="btn btn-warning btn-xs"><i class="far fa-edit"></i>
@@ -44,12 +74,13 @@
                                         class="btn btn-info btn-xs"><i class="fas fa-eye"></i> </a>
                                 @endcan
                                 @can('service_delete')
-                                    <form class="d-inline" action="{{ route('admin.services.destroy', ['service' => $service->id]) }}"
+                                    {{-- <form class="d-inline"
+                                        action="{{ route('admin.services.destroy', ['service' => $service->id]) }}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <a class="btn btn-xs btn-danger text-light"><i class="far fa-trash-alt"></i></a>
-                                    </form>
+                                    </form> --}}
                                 @endcan
                             </td>
 
@@ -64,13 +95,14 @@
     </div>
 @endsection
 @section('scripts')
-<script src="{{ asset('js/datatables/datatables.js') }}" type="module"></script>
-@parent
-<script>
-    $(function () {
-        $(".datatable-Service").on( "click", ".btn-danger", async function() {
-            await deleteRecordWithconfirmMessage(undefined, undefined, undefined, $(this).parents('form'));
-        })
-    });
-</script>
+    <script src="{{ asset('js/datatables/datatables.js') }}" type="module"></script>
+    @parent
+    <script>
+        $(function() {
+            $(".datatable-Service").on("click", ".btn-danger", async function() {
+                await deleteRecordWithconfirmMessage(undefined, undefined, undefined, $(this).parents(
+                    'form'));
+            })
+        });
+    </script>
 @endsection

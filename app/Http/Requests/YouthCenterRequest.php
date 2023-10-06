@@ -26,6 +26,7 @@ class YouthCenterRequest extends FormRequest
         return [
             "name"=>["required"],
             "city_id"=>["required"],
+            "status"=>["required"],
             'services.*'   => 'required|array',
             // 'services.*.service_id' => ["required"],
             'services.*.duration' => ["required_if:services.*.is_checked,true"],
@@ -38,6 +39,7 @@ class YouthCenterRequest extends FormRequest
         return [
             "name.required"=>trans('validation.required',["attribute"=>trans("cruds.youth_centers.fields.name")]),
             "city_id.required"=>trans('validation.required',["attribute"=>trans("cruds.youth_centers.fields.city")]),
+            "status.required"=>trans('validation.required',["attribute"=>trans("global.status")]),
             "services.required"=>trans('validation.required',["attribute"=>trans("cruds.youth_centers.fields.services.*")]),
             "services.*.service_id.required"=>trans('validation.required',["attribute"=>trans("cruds.youth_centers.fields.services.name")]),
             "services.*.duration.required_if"=>trans('validation.required',["attribute"=>trans("cruds.youth_centers.fields.services.duration")]),

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
+use App\Constants\Constants;
 use App\Http\Controllers\Controller;
 use App\Province;
 use App\Region;

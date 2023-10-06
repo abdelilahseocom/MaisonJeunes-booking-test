@@ -34,7 +34,6 @@ class ServicesController extends Controller
     public function store(ServiceRequest $request)
     {
         abort_if(Gate::denies('service_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         if (Service::create($request->all())) {
             Session::flash("success", trans('global.success_msg'));   
         }

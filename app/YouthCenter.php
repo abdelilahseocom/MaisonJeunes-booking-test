@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class YouthCenter extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable=["name","address","city_id"];
+    protected $fillable=["name","address","city_id","status"];
     
     public function city(){
         return $this->belongsTo(City::class,"city_id","id");

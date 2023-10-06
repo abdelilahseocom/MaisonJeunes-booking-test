@@ -19,6 +19,7 @@ class CreateYouthCentersTable extends Migration
             $table->string('address')->nullable();
             $table->unsignedInteger('city_id');            
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

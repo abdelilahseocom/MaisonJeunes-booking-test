@@ -88,10 +88,10 @@ class BookingController extends Controller
 
         $data["regions"] =  Region::get();
         $data["provinces"] = !empty($workPlaces["region_id"]) ? Province::where('region_id', $workPlaces['region_id'])->get(): [];
-        $data["youthCenters"] = !empty($workPlaces["province_id"]) ? YouthCenter::whereHas('city', function($query) use($workPlaces) {
+        $data["youthCenters"] = !empty($workPlaces["province_id"]) ? YouthCenter::where("status",Constants::STATUS_ACTIVE)->whereHas('city', function($query) use($workPlaces) {
             $query->where('province_id', $workPlaces['province_id']);
         })->get() : [];
-        $data["youthCentersServices"] = !empty($workPlaces["youth_center_id"]) ? YouthCenter::where("id",$workPlaces["youth_center_id"])->first()->services()->wherePivot("status",Constants::STATUS_ACTIVE)->get(): [];
+        $data["youthCentersServices"] = !empty($workPlaces["youth_center_id"]) ? YouthCenter::where("status",Constants::STATUS_ACTIVE)->where("id",$workPlaces["youth_center_id"])->first()->services()->wherePivot("status",Constants::STATUS_ACTIVE)->get(): [];
 
         return view('admin.bookings.create',[
             'clients'=>$clients,
@@ -215,7 +215,7 @@ class BookingController extends Controller
         $youth_center_only = $regions = $provinces = $youth_centers = [];
         if(empty($workplaces['youth_center_id'])) {
             if(!empty($workplaces['province_id'])) {
-                $youth_centers =  YouthCenter::whereHas('city', function($query) use($workplaces) {
+                $youth_centers =  YouthCenter::where("status",Constants::STATUS_ACTIVE)->whereHas('city', function($query) use($workplaces) {
                     $query->where('province_id', $workplaces['province_id']);
                 })->get()->pluck('name', 'id');  
             }
@@ -225,7 +225,7 @@ class BookingController extends Controller
                 $provinces = Province::where('region_id', $workplaces['region_id'])->get()->pluck('name', 'id');
             }
         } else {
-            $youth_center_only = $workplaces['youth_center_id'] ? YouthCenter::where('id', $workplaces['youth_center_id'])->first() : '';
+            $youth_center_only = $workplaces['youth_center_id'] ? YouthCenter::where("status",Constants::STATUS_ACTIVE)->where('id', $workplaces['youth_center_id'])->first() : '';
         }
         return view('admin.bookings.create_unavailability', compact('youth_centers', 'provinces', 'regions', 'workplaces', 'youth_center_only'));
     }
