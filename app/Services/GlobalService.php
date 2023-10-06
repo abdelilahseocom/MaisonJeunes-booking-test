@@ -21,13 +21,13 @@ class GlobalService{
     }
 
     public static function getYouthCentersByProvince($province_id){
-        $youth_centers = YouthCenter::with('city')->whereHas('city', function($query) use ($province_id) {
+        $youth_centers = YouthCenter::with('city')->where("status",Constants::STATUS_ACTIVE)->whereHas('city', function($query) use ($province_id) {
             $query->where('province_id', $province_id);
          })->get();
         return $youth_centers;
     }
     public static function getServicesByYouthCenter($youth_center_id){
-        $youth_center = YouthCenter::with('services')->where("id",$youth_center_id)->first();
+        $youth_center = YouthCenter::with('services')->where("status",Constants::STATUS_ACTIVE)->where("id",$youth_center_id)->first();
         return $youth_center->services()->wherePivot("status",Constants::STATUS_ACTIVE)->get();
     }
 

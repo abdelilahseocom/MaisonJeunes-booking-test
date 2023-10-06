@@ -32,6 +32,9 @@
                             {{ trans('cruds.youth_centers.fields.address') }}
                         </th>
                         <th>
+                            {{ trans('global.status') }}
+                        </th>
+                        <th>
                             {{ trans('global.action') }}
                         </th>
                     </tr>
@@ -48,19 +51,33 @@
                                 {{ $youthCenter->address }}
                             </td>
                             <td>
+                                @switch($youthCenter->status)
+                                    @case(Constants::STATUS_ACTIVE)
+                                        <span class="badge badge-success">
+                                            {{ trans('global.status_active') }}
+                                        </span>
+                                    @break
+                                    @case(Constants::STATUS_NOT_ACTIVE)
+                                        <span class="badge badge-danger">
+                                            {{ trans('global.status_desactive') }}
+                                        </span>
+                                    @break
+                                @endswitch
+                            </td>
+                            <td>
                                 @can('youth-center_edit')
                                     <a href="{{ route('admin.youthCenters.edit', ['youthCenter' => $youthCenter->id]) }}"
                                         class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
                                 @endcan
                                 @can('youth-center_delete')
-                                    <form class="d-inline"
+                                    {{-- <form class="d-inline"
                                         action="{{ route('admin.youthCenters.destroy', ['youthCenter' => $youthCenter->id]) }}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <a class="btn btn-xs btn-danger text-light remove-youth-center"><i
                                                 class="far fa-trash-alt"></i></a>
-                                    </form>
+                                    </form> --}}
                                 @endcan
 
                             </td>

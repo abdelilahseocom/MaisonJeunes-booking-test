@@ -20,7 +20,9 @@ class Service extends Model
 
     protected $fillable = [
         'name',
-        'price',
+        'duration',
+        'max_places',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',

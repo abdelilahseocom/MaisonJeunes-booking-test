@@ -1,33 +1,69 @@
 @extends('layouts.admin')
 @section('content')
+    <div class="card">
+        <form action="{{ route('admin.services.update', [$service->id]) }}" method="POST" enctype="multipart/form-data">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-11">
+                        {{ trans('global.edit') }} {{ trans('cruds.service.title_singular') }}
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.service.title_singular') }}
-    </div>
-
-    <div class="card-body">
-        <form action="{{ route("admin.services.update", [$service->id]) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="name">{{ trans('cruds.service.fields.name') }}*</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($service) ? $service->name : '') }}" required>
-                @if($errors->has('name'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </em>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.service.fields.name_helper') }}
-                </p>
+                    </div>
+                    <div class="col-md-1">
+                        <select name="status" class="form-control  service status">
+                            @foreach (Constants::getAllStatus() as $status)
+                                <option {{ $service->status == $status['value'] ? 'selected' : '' }}
+                                    value="{{ $status['value'] }}"> {{ $status['name'] }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div>
-                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+
+            <div class="card-body">
+                @csrf
+                @method('PUT')
+                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                    <label for="name">{{ trans('cruds.service.fields.name') }}*</label>
+                    <input type="text" id="name" name="name" class="form-control"
+                        value="{{ old('name', isset($service) ? $service->name : '') }}" required>
+                    @if ($errors->has('name'))
+                        <em class="invalid-feedback">
+                            {{ $errors->first('name') }}
+                        </em>
+                    @endif
+                </div>
+                <div class="form-group {{ $errors->has('duration') ? 'has-error' : '' }}">
+                    <label for="duration">{{ trans('cruds.service.fields.duration') }} <span
+                            class="text-danger">*</span></label>
+                    <input type="number" id="duration"
+                        value="{{ old('duration', isset($service) ? $service->duration : '') }}" name="duration"
+                        class="form-control" value="{{ old('duration') }}" required>
+                    @if ($errors->has('duration'))
+                        <em class="invalid-feedback">
+                            {{ $errors->first('duration') }}
+                        </em>
+                    @endif
+
+                </div>
+                <div class="form-group {{ $errors->has('max_places') ? 'has-error' : '' }}">
+                    <label for="max_places">{{ trans('cruds.service.fields.max_places') }} <span
+                            class="text-danger">*</span> </label>
+                    <input type="number" id="max_places"
+                        value="{{ old('max_places', isset($service) ? $service->max_places : '') }}" name="max_places"
+                        class="form-control" value="{{ old('max_places') }}" required>
+                    @if ($errors->has('max_places'))
+                        <em class="invalid-feedback">
+                            {{ $errors->first('max_places') }}
+                        </em>
+                    @endif
+                </div>
+
+                <div>
+                    <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                </div>
+
+
             </div>
         </form>
-
-
     </div>
-</div>
 @endsection

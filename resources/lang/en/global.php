@@ -272,5 +272,7 @@ return [
         'user'         => 'Users Management',
         'city'         => 'Cities Management'
     ],
+    'status_active'                            => 'Activate',
+    'status_desactive'                         => 'Deactivate',
 
 ];

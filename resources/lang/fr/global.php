@@ -271,5 +271,7 @@ return [
         'user'         => 'Gestion des utilisateurs',
         'city'         => 'Gestion des villes',
     ],
+    'status_active'                            => 'Active',
+    'status_desactive'                         => 'Désactivé',
 
 ];

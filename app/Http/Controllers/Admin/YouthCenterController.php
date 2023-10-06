@@ -26,20 +26,17 @@ class YouthCenterController extends Controller
     public function index()
     {
         abort_if(Gate::denies('youth-center_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $user=Auth::user();
+        $user = Auth::user();
         $workPlaces = GlobalService::getUserWorkplaces($user);
         if (!empty($workPlaces["region_id"]) && empty($workPlaces["province_id"]) && empty($workPlaces["youth_center_id"])) {
             $youthCenters = YouthCenter::orderBy("updated_at", "asc")->get();
-        }
-        else if(!empty($workPlaces["prvince_id"]) && empty($workPlaces["youth_center_id"])){
-            $youthCenters = YouthCenter::whereHas("city",function($query)use($workPlaces){
-                $query->where("province_id",$workPlaces["prvince_id"]);
+        } else if (!empty($workPlaces["prvince_id"]) && empty($workPlaces["youth_center_id"])) {
+            $youthCenters = YouthCenter::whereHas("city", function ($query) use ($workPlaces) {
+                $query->where("province_id", $workPlaces["prvince_id"]);
             })->orderBy("updated_at", "asc")->get();
-        }
-        else if(!empty($workPlaces["youth_center_id"])){
-            $youthCenters = YouthCenter::where("id",$workPlaces["youth_center_id"])->orderBy("updated_at", "asc")->get();
-        }
-        else {
+        } else if (!empty($workPlaces["youth_center_id"])) {
+            $youthCenters = YouthCenter::where("id", $workPlaces["youth_center_id"])->orderBy("updated_at", "asc")->get();
+        } else {
             $youthCenters = YouthCenter::orderBy("updated_at", "asc")->get();
         }
 
@@ -57,7 +54,7 @@ class YouthCenterController extends Controller
     {
         abort_if(Gate::denies('youth-center_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $services = Service::get();
+        $services = Service::where("status", Constants::STATUS_ACTIVE)->get();
         $cities = City::orderBy("name", "asc")->get();
         return view("admin.youthCenters.create", [
             "services" => $services,
@@ -79,6 +76,7 @@ class YouthCenterController extends Controller
             "name" => $request->name,
             "address" => $request->address,
             "city_id" => $request->city_id,
+            "status" => $request->status,
 
         ];
         DB::beginTransaction();
@@ -87,12 +85,12 @@ class YouthCenterController extends Controller
                 if ($request->has("services") && count($request->services) > 0) {
                     foreach ($request->services as $key => $service) {
                         if (isset($service["is_checked"])) {
-                        $serviceData[$service["service_id"]] = [
-                            "duration" => $service["duration"],
-                            "max_places" => $service["max_places"],
-                            "status" => $service["status"],
-                        ];
-                    }
+                            $serviceData[$service["service_id"]] = [
+                                "duration" => $service["duration"],
+                                "max_places" => $service["max_places"],
+                                "status" => $service["status"],
+                            ];
+                        }
                     }
                     $youthCenter->services()->sync($serviceData);
                 }
@@ -150,12 +148,13 @@ class YouthCenterController extends Controller
     public function update(YouthCenterRequest $request, $id)
     {
         abort_if(Gate::denies('youth-center_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $youthCenter = YouthCenter::findOrFail($id);
         $youthCenterData = [
             "name" => $request->name,
             "address" => $request->address,
             "city_id" => $request->city_id,
+            "status" => $request->status,
+
 
         ];
         DB::beginTransaction();
@@ -171,7 +170,6 @@ class YouthCenterController extends Controller
                                 "status" => $service["status"],
                             ];
                         }
-                       
                     }
                     $youthCenter->services()->sync($serviceData);
                 }
